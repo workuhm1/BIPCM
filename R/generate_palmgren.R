@@ -1,3 +1,4 @@
+
 ## ********************************************************************************
 ## Copyright: FSW, Leiden University, The Netherlands
 ## ********************************************************************************
@@ -7,11 +8,11 @@
 ##  Description : The script generates bivariate binary responses (y1_i, y2_i) 
 ##                following a Bivariate Logistic Regression (BLR) model (sometimes  
 ##                referred to as Palmgren Model). The association model, i.e., 
-##                log(tau_i)=eta_i, is a constrained model as its parameters 
-##                are defined as function of the marginal parameters according to
+##                log(tau_i)=eta_i, is a constrained model whose parameters 
+##                are defined as function of the marginal parameters following
 ##                a 2-dimensional IPC model.
 ##  Remarks     : N/A
-##  ********************************************************************************
+## ********************************************************************************
 
 
 ## Load VGAM package for generating bivariate binary responses following BLR 
@@ -33,17 +34,17 @@ write.table(x = seed_list, file = "sim_data/seed_values.txt", row.names = FALSE,
 ## Set file name
 file_name = "sim_data"
 
-## Start looping
+## Start simulation
 for(rep in 1:Nrep){
   
   ## Get the seed number 
   seed = seed_list[rep]
   
   ## Generate Bivariate Binary responses following BLR model
-  temp_data <- gen_palm(seedIN=seed)
+  sim_data_i <- gen_palm(seedIN=seed)
   
-  ## Explort simulated dataset
-  write.table(x = cbind(rep, seed, temp_data), 
+  ## Export simulated dataset <i>
+  write.table(x = cbind(rep, seed, sim_data_i), 
               file = paste("./sim_data/", file_name,"_",Nrep,"_",rep,".csv",sep=""),
               sep=",", row.names = FALSE)
 }

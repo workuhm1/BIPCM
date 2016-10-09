@@ -10,7 +10,7 @@
 ## ********************************************************************************
 ##  Input : Nrep [M]      - number of replication
 ##          type [M]      - type of analysis (e.g., IPC2D_indep, etc)
-##          file.name [O] - file name for output file
+##          file_name [O] - file name for output file
 ##  Output: A comma-separated txt dataset.
 ##  ********************************************************************************
 
@@ -20,13 +20,6 @@ Mres = function(Nrep, type, file_name=NULL){
   ## Check if the user specifies file name for output dataset
   if(is.null(file_name)){
     file_name <- Nrep
-  }
-  
-  ## Check if file exists
-  if(file.exists(paste(file_name,".csv",sep=","))){
-    file_name <- paste(file_name, "-", as.numeric(Sys.time()), sep="")   
-    
-    Mres(Nrep=Nrep, type, file_name=file_name)
   }
   
   ## Merge

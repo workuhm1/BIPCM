@@ -8,8 +8,8 @@
 ##  Description : The script generates bivariate binary responses (y1_i, y2_i) 
 ##                following a Bivariate Logistic Regression (BLR) model (sometimes  
 ##                referred to as Palmgren Model). The association model, i.e., 
-##                log(tau_i)=eta_i, is a constrained model as its parameters 
-##                are defined as function of the marginal parameters according to
+##                log(tau_i)=eta_i, is a constrained model whose parameters 
+##                are defined as function of the marginal parameters following
 ##                a 2-dimensional IPC model.
 ##  Remarks     : N/A
 ## ********************************************************************************
@@ -19,7 +19,6 @@
 ##  ********************************************************************************
 
 
-## A function used for generating Bivariate Binary responses from BLR model
 gen_palm = function(nn=500, seedIN=NULL)   {
   
   ## Check if SEED value is give by the user

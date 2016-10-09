@@ -20,12 +20,13 @@
 %let olog       = &root_path.\SAS;
 %let prog_name  = analyze_sim_data;
 
+/* Save log file to permanent location. */
 filename logout "&olog.\&prog_name..log";
 
 proc printto log=logout;
 run;
 
-/* Environmental settings. */
+/* Import main macros for fitting (B)IPC models. */
 filename MACRO "&root_path.\SAS";
 %include MACRO(read_rawdata.sas);
 %include MACRO(fit_2IPC_indep.sas);
