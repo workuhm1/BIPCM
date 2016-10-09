@@ -22,7 +22,7 @@ library(VGAM)
 source("generate.R")
 
 ## Environmental settings
-setwd("C:/Users/HW1/Desktop/PhD_project_backup/Subproject_1/CodesInSubmittedPaper_R3_20160924/simulation-2_Modified_20160924/R")
+setwd("..path/R")
 
 ## Set number of replications
 Nrep = 1000

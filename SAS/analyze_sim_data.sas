@@ -16,7 +16,7 @@
 
 
 /* Environmental settings. */
-%let root_path  = C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-2_Modified_20160924;
+%let root_path  = ..main_path;
 %let olog       = &root_path.\SAS;
 %let prog_name  = analyze_sim_data;
 
