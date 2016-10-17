@@ -1,0 +1,1444 @@
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1418       
+1419       %analyze_sim_data(num_sim =1000, type=bipc, analyze_until =2);
+
+1420        /**********************************************************************
+1421        *   PRODUCT:   SAS
+1422        *   VERSION:   9.3
+1423        *   CREATOR:   External File Interface
+1424        *   DATE:      17OCT16
+1425        *   DESC:      Generated SAS Datastep Code
+1426        *   TEMPLATE SOURCE:  (None Specified.)
+1427        ***********************************************************************/
+1428           data WORK.DS_SIM_1    ;
+1429           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1430           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1431              informat rep best32. ;
+1432              informat seed best32. ;
+1433              informat id best32. ;
+1434              informat X1 best32. ;
+1435              informat X2 best32. ;
+1436              informat X3 best32. ;
+1437              informat X4 best32. ;
+1438              informat X5 best32. ;
+1439              informat y1 best32. ;
+1440              informat y2 best32. ;
+1441              format rep best12. ;
+1442              format seed best12. ;
+1443              format id best12. ;
+1444              format X1 best12. ;
+1445              format X2 best12. ;
+1446              format X3 best12. ;
+1447              format X4 best12. ;
+1448              format X5 best12. ;
+1449              format y1 best12. ;
+1450              format y2 best12. ;
+1451           input
+1452                       rep
+1453                       seed
+1454                       id
+1455                       X1
+36                                        The SAS System            03:50 Monday, October 17, 2016
+
+1456                       X2
+1457                       X3
+1458                       X4
+1459                       X5
+1460                       y1
+1461                       y2
+1462           ;
+1463           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1463     ! */
+1464           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44720,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 92.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_1 from RDATA.
+  
+  
+  
+NOTE: WORK.DS_SIM_1 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.07 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_1.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_1                           *|
+|* Type of Analysis: bipc                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 9 variables.
+37                                        The SAS System            03:50 Monday, October 17, 2016
+
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 16-17.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.10 seconds
+      
+
+
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1465        /**********************************************************************
+1466        *   PRODUCT:   SAS
+1467        *   VERSION:   9.3
+1468        *   CREATOR:   External File Interface
+1469        *   DATE:      17OCT16
+1470        *   DESC:      Generated SAS Datastep Code
+1471        *   TEMPLATE SOURCE:  (None Specified.)
+1472        ***********************************************************************/
+1473           data _null_;
+1474           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1475           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1476           file
+1476     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1476     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv' delimiter=','
+1476     ! DSD DROPOVER
+1477       lrecl=32767;
+1478           if _n_ = 1 then        /* write column names or labels */
+1479            do;
+1480              put
+1481                 "loop"
+1482              ','
+1483                 "Parameter"
+1484              ','
+1485                 "Estimate"
+1486              ','
+1487                 "StandardError"
+1488              ','
+1489                 "DF"
+1490              ','
+1491                 "tValue"
+1492              ','
+1493                 "Probt"
+1494              ','
+1495                 "Alpha"
+1496              ','
+1497                 "Lower"
+1498              ','
+38                                        The SAS System            03:50 Monday, October 17, 2016
+
+1499                 "Upper"
+1500              ','
+1501                 "Gradient"
+1502              ;
+1503            end;
+1504          set  WORK.BIPC_MARG   end=EFIEOD;
+1505              format loop best12. ;
+1506              format Parameter $4. ;
+1507              format Estimate d8.4 ;
+1508              format StandardError d8.4 ;
+1509              format DF best4. ;
+1510              format tValue 7.2 ;
+1511              format Probt pvalue6.4 ;
+1512              format Alpha best6. ;
+1513              format Lower d8.4 ;
+1514              format Upper d8.4 ;
+1515              format Gradient best8. ;
+1516            do;
+1517              EFIOUT + 1;
+1518              put loop @;
+1519              put Parameter $ @;
+1520              put Estimate @;
+1521              put StandardError @;
+1522              put DF @;
+1523              put tValue @;
+1524              put Probt @;
+1525              put Alpha @;
+1526              put Lower @;
+1527              put Upper @;
+1528              put Gradient ;
+1529              ;
+1530            end;
+1531           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1531     ! */
+1532           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1533           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_marg\BIPC_marg_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 03:50:56 o'clo,
+      Create Time=17 October 2016 03:01:30 o'clo
+
+NOTE: 15 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+39                                        The SAS System            03:50 Monday, October 17, 2016
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+14 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv from WORK.BIPC_MARG.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.09 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+1534        /**********************************************************************
+1535        *   PRODUCT:   SAS
+1536        *   VERSION:   9.3
+1537        *   CREATOR:   External File Interface
+1538        *   DATE:      17OCT16
+1539        *   DESC:      Generated SAS Datastep Code
+1540        *   TEMPLATE SOURCE:  (None Specified.)
+1541        ***********************************************************************/
+1542           data _null_;
+1543           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1544           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1545           file
+1545     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1545     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv' delimiter=','
+1545     ! DSD DROPOVER
+1546       lrecl=32767;
+1547           if _n_ = 1 then        /* write column names or labels */
+1548            do;
+1549              put
+1550                 "loop"
+1551              ','
+1552                 "Label"
+1553              ','
+1554                 "Estimate"
+1555              ','
+1556                 "StandardError"
+40                                        The SAS System            03:50 Monday, October 17, 2016
+
+1557              ','
+1558                 "DF"
+1559              ','
+1560                 "tValue"
+1561              ','
+1562                 "Probt"
+1563              ','
+1564                 "Alpha"
+1565              ','
+1566                 "Lower"
+1567              ','
+1568                 "Upper"
+1569              ;
+1570            end;
+1571          set  WORK.BIPC_ASSO   end=EFIEOD;
+1572              format loop best12. ;
+1573              format Label $3. ;
+1574              format Estimate d8.4 ;
+1575              format StandardError d8.4 ;
+1576              format DF best4. ;
+1577              format tValue 7.2 ;
+1578              format Probt pvalue6.4 ;
+1579              format Alpha best6. ;
+1580              format Lower d8.4 ;
+1581              format Upper d8.4 ;
+1582            do;
+1583              EFIOUT + 1;
+1584              put loop @;
+1585              put Label $ @;
+1586              put Estimate @;
+1587              put StandardError @;
+1588              put DF @;
+1589              put tValue @;
+1590              put Probt @;
+1591              put Alpha @;
+1592              put Lower @;
+1593              put Upper ;
+1594              ;
+1595            end;
+1596           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1596     ! */
+1597           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1598           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_asso\BIPC_asso_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 03:50:56 o'clo,
+      Create Time=17 October 2016 03:01:31 o'clo
+41                                        The SAS System            03:50 Monday, October 17, 2016
+
+
+NOTE: 7 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv'.
+      The minimum record length was 54.
+      The maximum record length was 67.
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+6 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv from WORK.BIPC_ASSO.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: Deleting WORK.BIPC_MARG (memtype=DATA).
+NOTE: Deleting WORK.BIPC_ASSO (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_1 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1599        /**********************************************************************
+1600        *   PRODUCT:   SAS
+1601        *   VERSION:   9.3
+1602        *   CREATOR:   External File Interface
+1603        *   DATE:      17OCT16
+1604        *   DESC:      Generated SAS Datastep Code
+1605        *   TEMPLATE SOURCE:  (None Specified.)
+1606        ***********************************************************************/
+1607           data WORK.DS_SIM_2    ;
+1608           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1609           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1610              informat rep best32. ;
+42                                        The SAS System            03:50 Monday, October 17, 2016
+
+1611              informat seed best32. ;
+1612              informat id best32. ;
+1613              informat X1 best32. ;
+1614              informat X2 best32. ;
+1615              informat X3 best32. ;
+1616              informat X4 best32. ;
+1617              informat X5 best32. ;
+1618              informat y1 best32. ;
+1619              informat y2 best32. ;
+1620              format rep best12. ;
+1621              format seed best12. ;
+1622              format id best12. ;
+1623              format X1 best12. ;
+1624              format X2 best12. ;
+1625              format X3 best12. ;
+1626              format X4 best12. ;
+1627              format X5 best12. ;
+1628              format y1 best12. ;
+1629              format y2 best12. ;
+1630           input
+1631                       rep
+1632                       seed
+1633                       id
+1634                       X1
+1635                       X2
+1636                       X3
+1637                       X4
+1638                       X5
+1639                       y1
+1640                       y2
+1641           ;
+1642           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1642     ! */
+1643           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44665,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 91.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_2 from RDATA.
+43                                        The SAS System            03:50 Monday, October 17, 2016
+
+  
+  
+  
+NOTE: WORK.DS_SIM_2 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_2.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_2                           *|
+|* Type of Analysis: bipc                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 9 variables.
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 18-20.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.18 seconds
+      cpu time            0.10 seconds
+      
+
+
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1644        /**********************************************************************
+1645        *   PRODUCT:   SAS
+1646        *   VERSION:   9.3
+1647        *   CREATOR:   External File Interface
+1648        *   DATE:      17OCT16
+1649        *   DESC:      Generated SAS Datastep Code
+1650        *   TEMPLATE SOURCE:  (None Specified.)
+1651        ***********************************************************************/
+1652           data _null_;
+1653           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1654           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1655           file
+44                                        The SAS System            03:50 Monday, October 17, 2016
+
+1655     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1655     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv' delimiter=','
+1655     ! DSD DROPOVER
+1656       lrecl=32767;
+1657           if _n_ = 1 then        /* write column names or labels */
+1658            do;
+1659              put
+1660                 "loop"
+1661              ','
+1662                 "Parameter"
+1663              ','
+1664                 "Estimate"
+1665              ','
+1666                 "StandardError"
+1667              ','
+1668                 "DF"
+1669              ','
+1670                 "tValue"
+1671              ','
+1672                 "Probt"
+1673              ','
+1674                 "Alpha"
+1675              ','
+1676                 "Lower"
+1677              ','
+1678                 "Upper"
+1679              ','
+1680                 "Gradient"
+1681              ;
+1682            end;
+1683          set  WORK.BIPC_MARG   end=EFIEOD;
+1684              format loop best12. ;
+1685              format Parameter $4. ;
+1686              format Estimate d8.4 ;
+1687              format StandardError d8.4 ;
+1688              format DF best4. ;
+1689              format tValue 7.2 ;
+1690              format Probt pvalue6.4 ;
+1691              format Alpha best6. ;
+1692              format Lower d8.4 ;
+1693              format Upper d8.4 ;
+1694              format Gradient best8. ;
+1695            do;
+1696              EFIOUT + 1;
+1697              put loop @;
+1698              put Parameter $ @;
+1699              put Estimate @;
+1700              put StandardError @;
+1701              put DF @;
+1702              put tValue @;
+1703              put Probt @;
+1704              put Alpha @;
+1705              put Lower @;
+45                                        The SAS System            03:50 Monday, October 17, 2016
+
+1706              put Upper @;
+1707              put Gradient ;
+1708              ;
+1709            end;
+1710           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1710     ! */
+1711           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1712           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_marg\BIPC_marg_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 03:50:57 o'clo,
+      Create Time=17 October 2016 03:01:31 o'clo
+
+NOTE: 15 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+14 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv from WORK.BIPC_MARG.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1713        /**********************************************************************
+46                                        The SAS System            03:50 Monday, October 17, 2016
+
+1714        *   PRODUCT:   SAS
+1715        *   VERSION:   9.3
+1716        *   CREATOR:   External File Interface
+1717        *   DATE:      17OCT16
+1718        *   DESC:      Generated SAS Datastep Code
+1719        *   TEMPLATE SOURCE:  (None Specified.)
+1720        ***********************************************************************/
+1721           data _null_;
+1722           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1723           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1724           file
+1724     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1724     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv' delimiter=','
+1724     ! DSD DROPOVER
+1725       lrecl=32767;
+1726           if _n_ = 1 then        /* write column names or labels */
+1727            do;
+1728              put
+1729                 "loop"
+1730              ','
+1731                 "Label"
+1732              ','
+1733                 "Estimate"
+1734              ','
+1735                 "StandardError"
+1736              ','
+1737                 "DF"
+1738              ','
+1739                 "tValue"
+1740              ','
+1741                 "Probt"
+1742              ','
+1743                 "Alpha"
+1744              ','
+1745                 "Lower"
+1746              ','
+1747                 "Upper"
+1748              ;
+1749            end;
+1750          set  WORK.BIPC_ASSO   end=EFIEOD;
+1751              format loop best12. ;
+1752              format Label $3. ;
+1753              format Estimate d8.4 ;
+1754              format StandardError d8.4 ;
+1755              format DF best4. ;
+1756              format tValue 7.2 ;
+1757              format Probt pvalue6.4 ;
+1758              format Alpha best6. ;
+1759              format Lower d8.4 ;
+1760              format Upper d8.4 ;
+1761            do;
+1762              EFIOUT + 1;
+1763              put loop @;
+47                                        The SAS System            03:50 Monday, October 17, 2016
+
+1764              put Label $ @;
+1765              put Estimate @;
+1766              put StandardError @;
+1767              put DF @;
+1768              put tValue @;
+1769              put Probt @;
+1770              put Alpha @;
+1771              put Lower @;
+1772              put Upper ;
+1773              ;
+1774            end;
+1775           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1775     ! */
+1776           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1777           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_asso\BIPC_asso_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 03:50:57 o'clo,
+      Create Time=17 October 2016 03:01:31 o'clo
+
+NOTE: 7 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv'.
+      The minimum record length was 54.
+      The maximum record length was 67.
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+6 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv from WORK.BIPC_ASSO.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: Deleting WORK.BIPC_MARG (memtype=DATA).
+NOTE: Deleting WORK.BIPC_ASSO (memtype=DATA).
+48                                        The SAS System            03:50 Monday, October 17, 2016
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_2 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+1778       
+1779       proc printto log=log;
+1780       run;
+
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1418       
+1419       %analyze_sim_data(num_sim =1000, type=bipc, analyze_until =2);
+
+1420        /**********************************************************************
+1421        *   PRODUCT:   SAS
+1422        *   VERSION:   9.3
+1423        *   CREATOR:   External File Interface
+1424        *   DATE:      17OCT16
+1425        *   DESC:      Generated SAS Datastep Code
+1426        *   TEMPLATE SOURCE:  (None Specified.)
+1427        ***********************************************************************/
+1428           data WORK.DS_SIM_1    ;
+1429           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1430           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1431              informat rep best32. ;
+1432              informat seed best32. ;
+1433              informat id best32. ;
+1434              informat X1 best32. ;
+1435              informat X2 best32. ;
+1436              informat X3 best32. ;
+1437              informat X4 best32. ;
+1438              informat X5 best32. ;
+1439              informat y1 best32. ;
+1440              informat y2 best32. ;
+1441              format rep best12. ;
+1442              format seed best12. ;
+1443              format id best12. ;
+1444              format X1 best12. ;
+1445              format X2 best12. ;
+1446              format X3 best12. ;
+1447              format X4 best12. ;
+1448              format X5 best12. ;
+1449              format y1 best12. ;
+1450              format y2 best12. ;
+1451           input
+1452                       rep
+1453                       seed
+1454                       id
+1455                       X1
+36                                        The SAS System            04:14 Monday, October 17, 2016
+
+1456                       X2
+1457                       X3
+1458                       X4
+1459                       X5
+1460                       y1
+1461                       y2
+1462           ;
+1463           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1463     ! */
+1464           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44720,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 92.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_1 from RDATA.
+  
+  
+  
+NOTE: WORK.DS_SIM_1 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.07 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_1.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_1                           *|
+|* Type of Analysis: bipc                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 9 variables.
+37                                        The SAS System            04:14 Monday, October 17, 2016
+
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 16-17.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.13 seconds
+      cpu time            0.12 seconds
+      
+
+
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+1465        /**********************************************************************
+1466        *   PRODUCT:   SAS
+1467        *   VERSION:   9.3
+1468        *   CREATOR:   External File Interface
+1469        *   DATE:      17OCT16
+1470        *   DESC:      Generated SAS Datastep Code
+1471        *   TEMPLATE SOURCE:  (None Specified.)
+1472        ***********************************************************************/
+1473           data _null_;
+1474           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1475           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1476           file
+1476     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1476     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv' delimiter=','
+1476     ! DSD DROPOVER
+1477       lrecl=32767;
+1478           if _n_ = 1 then        /* write column names or labels */
+1479            do;
+1480              put
+1481                 "loop"
+1482              ','
+1483                 "Parameter"
+1484              ','
+1485                 "Estimate"
+1486              ','
+1487                 "StandardError"
+1488              ','
+1489                 "DF"
+1490              ','
+1491                 "tValue"
+1492              ','
+1493                 "Probt"
+1494              ','
+1495                 "Alpha"
+1496              ','
+1497                 "Lower"
+1498              ','
+38                                        The SAS System            04:14 Monday, October 17, 2016
+
+1499                 "Upper"
+1500              ','
+1501                 "Gradient"
+1502              ;
+1503            end;
+1504          set  WORK.BIPC_MARG   end=EFIEOD;
+1505              format loop best12. ;
+1506              format Parameter $4. ;
+1507              format Estimate d8.4 ;
+1508              format StandardError d8.4 ;
+1509              format DF best4. ;
+1510              format tValue 7.2 ;
+1511              format Probt pvalue6.4 ;
+1512              format Alpha best6. ;
+1513              format Lower d8.4 ;
+1514              format Upper d8.4 ;
+1515              format Gradient best8. ;
+1516            do;
+1517              EFIOUT + 1;
+1518              put loop @;
+1519              put Parameter $ @;
+1520              put Estimate @;
+1521              put StandardError @;
+1522              put DF @;
+1523              put tValue @;
+1524              put Probt @;
+1525              put Alpha @;
+1526              put Lower @;
+1527              put Upper @;
+1528              put Gradient ;
+1529              ;
+1530            end;
+1531           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1531     ! */
+1532           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1533           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_marg\BIPC_marg_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 04:14:07 o'clo,
+      Create Time=17 October 2016 04:14:07 o'clo
+
+NOTE: 15 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+39                                        The SAS System            04:14 Monday, October 17, 2016
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+14 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv from WORK.BIPC_MARG.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_1.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.09 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1534        /**********************************************************************
+1535        *   PRODUCT:   SAS
+1536        *   VERSION:   9.3
+1537        *   CREATOR:   External File Interface
+1538        *   DATE:      17OCT16
+1539        *   DESC:      Generated SAS Datastep Code
+1540        *   TEMPLATE SOURCE:  (None Specified.)
+1541        ***********************************************************************/
+1542           data _null_;
+1543           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1544           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1545           file
+1545     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1545     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv' delimiter=','
+1545     ! DSD DROPOVER
+1546       lrecl=32767;
+1547           if _n_ = 1 then        /* write column names or labels */
+1548            do;
+1549              put
+1550                 "loop"
+1551              ','
+1552                 "Label"
+1553              ','
+1554                 "Estimate"
+1555              ','
+1556                 "StandardError"
+40                                        The SAS System            04:14 Monday, October 17, 2016
+
+1557              ','
+1558                 "DF"
+1559              ','
+1560                 "tValue"
+1561              ','
+1562                 "Probt"
+1563              ','
+1564                 "Alpha"
+1565              ','
+1566                 "Lower"
+1567              ','
+1568                 "Upper"
+1569              ;
+1570            end;
+1571          set  WORK.BIPC_ASSO   end=EFIEOD;
+1572              format loop best12. ;
+1573              format Label $3. ;
+1574              format Estimate d8.4 ;
+1575              format StandardError d8.4 ;
+1576              format DF best4. ;
+1577              format tValue 7.2 ;
+1578              format Probt pvalue6.4 ;
+1579              format Alpha best6. ;
+1580              format Lower d8.4 ;
+1581              format Upper d8.4 ;
+1582            do;
+1583              EFIOUT + 1;
+1584              put loop @;
+1585              put Label $ @;
+1586              put Estimate @;
+1587              put StandardError @;
+1588              put DF @;
+1589              put tValue @;
+1590              put Probt @;
+1591              put Alpha @;
+1592              put Lower @;
+1593              put Upper ;
+1594              ;
+1595            end;
+1596           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1596     ! */
+1597           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1598           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_asso\BIPC_asso_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 04:14:07 o'clo,
+      Create Time=17 October 2016 04:14:07 o'clo
+41                                        The SAS System            04:14 Monday, October 17, 2016
+
+
+NOTE: 7 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv'.
+      The minimum record length was 54.
+      The maximum record length was 67.
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+6 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv from WORK.BIPC_ASSO.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_1.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: Deleting WORK.BIPC_MARG (memtype=DATA).
+NOTE: Deleting WORK.BIPC_ASSO (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_1 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+1599        /**********************************************************************
+1600        *   PRODUCT:   SAS
+1601        *   VERSION:   9.3
+1602        *   CREATOR:   External File Interface
+1603        *   DATE:      17OCT16
+1604        *   DESC:      Generated SAS Datastep Code
+1605        *   TEMPLATE SOURCE:  (None Specified.)
+1606        ***********************************************************************/
+1607           data WORK.DS_SIM_2    ;
+1608           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1609           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1610              informat rep best32. ;
+42                                        The SAS System            04:14 Monday, October 17, 2016
+
+1611              informat seed best32. ;
+1612              informat id best32. ;
+1613              informat X1 best32. ;
+1614              informat X2 best32. ;
+1615              informat X3 best32. ;
+1616              informat X4 best32. ;
+1617              informat X5 best32. ;
+1618              informat y1 best32. ;
+1619              informat y2 best32. ;
+1620              format rep best12. ;
+1621              format seed best12. ;
+1622              format id best12. ;
+1623              format X1 best12. ;
+1624              format X2 best12. ;
+1625              format X3 best12. ;
+1626              format X4 best12. ;
+1627              format X5 best12. ;
+1628              format y1 best12. ;
+1629              format y2 best12. ;
+1630           input
+1631                       rep
+1632                       seed
+1633                       id
+1634                       X1
+1635                       X2
+1636                       X3
+1637                       X4
+1638                       X5
+1639                       y1
+1640                       y2
+1641           ;
+1642           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1642     ! */
+1643           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44665,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 91.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_2 from RDATA.
+43                                        The SAS System            04:14 Monday, October 17, 2016
+
+  
+  
+  
+NOTE: WORK.DS_SIM_2 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.07 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_2.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_2                           *|
+|* Type of Analysis: bipc                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 9 variables.
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 18-20.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.09 seconds
+      
+
+
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+NOTE: The data set WORK.BIPC_MARG has 14 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+1644        /**********************************************************************
+1645        *   PRODUCT:   SAS
+1646        *   VERSION:   9.3
+1647        *   CREATOR:   External File Interface
+1648        *   DATE:      17OCT16
+1649        *   DESC:      Generated SAS Datastep Code
+1650        *   TEMPLATE SOURCE:  (None Specified.)
+1651        ***********************************************************************/
+1652           data _null_;
+1653           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1654           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1655           file
+44                                        The SAS System            04:14 Monday, October 17, 2016
+
+1655     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1655     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv' delimiter=','
+1655     ! DSD DROPOVER
+1656       lrecl=32767;
+1657           if _n_ = 1 then        /* write column names or labels */
+1658            do;
+1659              put
+1660                 "loop"
+1661              ','
+1662                 "Parameter"
+1663              ','
+1664                 "Estimate"
+1665              ','
+1666                 "StandardError"
+1667              ','
+1668                 "DF"
+1669              ','
+1670                 "tValue"
+1671              ','
+1672                 "Probt"
+1673              ','
+1674                 "Alpha"
+1675              ','
+1676                 "Lower"
+1677              ','
+1678                 "Upper"
+1679              ','
+1680                 "Gradient"
+1681              ;
+1682            end;
+1683          set  WORK.BIPC_MARG   end=EFIEOD;
+1684              format loop best12. ;
+1685              format Parameter $4. ;
+1686              format Estimate d8.4 ;
+1687              format StandardError d8.4 ;
+1688              format DF best4. ;
+1689              format tValue 7.2 ;
+1690              format Probt pvalue6.4 ;
+1691              format Alpha best6. ;
+1692              format Lower d8.4 ;
+1693              format Upper d8.4 ;
+1694              format Gradient best8. ;
+1695            do;
+1696              EFIOUT + 1;
+1697              put loop @;
+1698              put Parameter $ @;
+1699              put Estimate @;
+1700              put StandardError @;
+1701              put DF @;
+1702              put tValue @;
+1703              put Probt @;
+1704              put Alpha @;
+1705              put Lower @;
+45                                        The SAS System            04:14 Monday, October 17, 2016
+
+1706              put Upper @;
+1707              put Gradient ;
+1708              ;
+1709            end;
+1710           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1710     ! */
+1711           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1712           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_marg\BIPC_marg_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 04:14:07 o'clo,
+      Create Time=17 October 2016 04:14:07 o'clo
+
+NOTE: 15 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 14 observations read from the data set WORK.BIPC_MARG.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+14 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv from WORK.BIPC_MARG.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_marg/BIPC_marg_2.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.12 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: The data set WORK.BIPC_ASSO has 6 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+1713        /**********************************************************************
+46                                        The SAS System            04:14 Monday, October 17, 2016
+
+1714        *   PRODUCT:   SAS
+1715        *   VERSION:   9.3
+1716        *   CREATOR:   External File Interface
+1717        *   DATE:      17OCT16
+1718        *   DESC:      Generated SAS Datastep Code
+1719        *   TEMPLATE SOURCE:  (None Specified.)
+1720        ***********************************************************************/
+1721           data _null_;
+1722           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1723           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1724           file
+1724     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1724     ! \simulation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv' delimiter=','
+1724     ! DSD DROPOVER
+1725       lrecl=32767;
+1726           if _n_ = 1 then        /* write column names or labels */
+1727            do;
+1728              put
+1729                 "loop"
+1730              ','
+1731                 "Label"
+1732              ','
+1733                 "Estimate"
+1734              ','
+1735                 "StandardError"
+1736              ','
+1737                 "DF"
+1738              ','
+1739                 "tValue"
+1740              ','
+1741                 "Probt"
+1742              ','
+1743                 "Alpha"
+1744              ','
+1745                 "Lower"
+1746              ','
+1747                 "Upper"
+1748              ;
+1749            end;
+1750          set  WORK.BIPC_ASSO   end=EFIEOD;
+1751              format loop best12. ;
+1752              format Label $3. ;
+1753              format Estimate d8.4 ;
+1754              format StandardError d8.4 ;
+1755              format DF best4. ;
+1756              format tValue 7.2 ;
+1757              format Probt pvalue6.4 ;
+1758              format Alpha best6. ;
+1759              format Lower d8.4 ;
+1760              format Upper d8.4 ;
+1761            do;
+1762              EFIOUT + 1;
+1763              put loop @;
+47                                        The SAS System            04:14 Monday, October 17, 2016
+
+1764              put Label $ @;
+1765              put Estimate @;
+1766              put StandardError @;
+1767              put DF @;
+1768              put tValue @;
+1769              put Probt @;
+1770              put Alpha @;
+1771              put Lower @;
+1772              put Upper ;
+1773              ;
+1774            end;
+1775           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1775     ! */
+1776           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1777           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\BIPC_asso\BIPC_asso_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 04:14:08 o'clo,
+      Create Time=17 October 2016 04:14:08 o'clo
+
+NOTE: 7 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv'.
+      The minimum record length was 54.
+      The maximum record length was 67.
+NOTE: There were 6 observations read from the data set WORK.BIPC_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+6 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv from WORK.BIPC_ASSO.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/BIPC_asso/BIPC_asso_2.csv" file was successfully 
+      created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.09 seconds
+      
+
+
+NOTE: Deleting WORK.BIPC_MARG (memtype=DATA).
+NOTE: Deleting WORK.BIPC_ASSO (memtype=DATA).
+48                                        The SAS System            04:14 Monday, October 17, 2016
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_2 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1778       
+1779       proc printto log=log;
+1780       run;
+

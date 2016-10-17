@@ -1,0 +1,960 @@
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1176       
+1177       %analyze_sim_data(num_sim =1000, type=ipc3d, analyze_until =2);
+
+1178        /**********************************************************************
+1179        *   PRODUCT:   SAS
+1180        *   VERSION:   9.3
+1181        *   CREATOR:   External File Interface
+1182        *   DATE:      17OCT16
+1183        *   DESC:      Generated SAS Datastep Code
+1184        *   TEMPLATE SOURCE:  (None Specified.)
+1185        ***********************************************************************/
+1186           data WORK.DS_SIM_1    ;
+1187           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1188           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1189              informat rep best32. ;
+1190              informat seed best32. ;
+1191              informat id best32. ;
+1192              informat X1 best32. ;
+1193              informat X2 best32. ;
+1194              informat X3 best32. ;
+1195              informat X4 best32. ;
+1196              informat X5 best32. ;
+1197              informat y1 best32. ;
+1198              informat y2 best32. ;
+1199              format rep best12. ;
+1200              format seed best12. ;
+1201              format id best12. ;
+1202              format X1 best12. ;
+1203              format X2 best12. ;
+1204              format X3 best12. ;
+1205              format X4 best12. ;
+1206              format X5 best12. ;
+1207              format y1 best12. ;
+1208              format y2 best12. ;
+1209           input
+1210                       rep
+1211                       seed
+1212                       id
+1213                       X1
+1214                       X2
+1215                       X3
+1216                       X4
+27                                        The SAS System            03:50 Monday, October 17, 2016
+
+1217                       X5
+1218                       y1
+1219                       y2
+1220           ;
+1221           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1221     ! */
+1222           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44720,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 92.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+500 rows created in WORK.DS_SIM_1 from RDATA.
+  
+  
+  
+NOTE: WORK.DS_SIM_1 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.10 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_1.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_1                           *|
+|* Type of Analysis: ipc3d                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: The data set WORK.IPC3D has 18 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 11-12.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.10 seconds
+28                                        The SAS System            03:50 Monday, October 17, 2016
+
+      cpu time            0.10 seconds
+      
+
+
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: The data set WORK.IPC3D has 18 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+1223        /**********************************************************************
+1224        *   PRODUCT:   SAS
+1225        *   VERSION:   9.3
+1226        *   CREATOR:   External File Interface
+1227        *   DATE:      17OCT16
+1228        *   DESC:      Generated SAS Datastep Code
+1229        *   TEMPLATE SOURCE:  (None Specified.)
+1230        ***********************************************************************/
+1231           data _null_;
+1232           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1233           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1234           file
+1234     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1234     ! \simulation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv' delimiter=',' DSD
+1234     ! DROPOVER lrecl=32767;
+1235           if _n_ = 1 then        /* write column names or labels */
+1236            do;
+1237              put
+1238                 "loop"
+1239              ','
+1240                 "Parameter"
+1241              ','
+1242                 "Estimate"
+1243              ','
+1244                 "StandardError"
+1245              ','
+1246                 "DF"
+1247              ','
+1248                 "tValue"
+1249              ','
+1250                 "Probt"
+1251              ','
+1252                 "Alpha"
+1253              ','
+1254                 "Lower"
+1255              ','
+1256                 "Upper"
+1257              ','
+1258                 "Gradient"
+1259              ;
+1260            end;
+29                                        The SAS System            03:50 Monday, October 17, 2016
+
+1261          set  WORK.IPC3D   end=EFIEOD;
+1262              format loop best12. ;
+1263              format Parameter $3. ;
+1264              format Estimate d8.4 ;
+1265              format StandardError d8.4 ;
+1266              format DF best4. ;
+1267              format tValue 7.2 ;
+1268              format Probt pvalue6.4 ;
+1269              format Alpha best6. ;
+1270              format Lower d8.4 ;
+1271              format Upper d8.4 ;
+1272              format Gradient best8. ;
+1273            do;
+1274              EFIOUT + 1;
+1275              put loop @;
+1276              put Parameter $ @;
+1277              put Estimate @;
+1278              put StandardError @;
+1279              put DF @;
+1280              put tValue @;
+1281              put Probt @;
+1282              put Alpha @;
+1283              put Lower @;
+1284              put Upper @;
+1285              put Gradient ;
+1286              ;
+1287            end;
+1288           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1288     ! */
+1289           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1290           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\IPC3D\IPC3D_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 03:50:55 o'clo,
+      Create Time=16 October 2016 16:06:51 o'clo
+
+NOTE: 19 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+30                                        The SAS System            03:50 Monday, October 17, 2016
+
+1291       
+
+18 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv from WORK.IPC3D.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.06 seconds
+      
+
+NOTE: Deleting WORK.IPC3D (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_1 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1292        /**********************************************************************
+1293        *   PRODUCT:   SAS
+1294        *   VERSION:   9.3
+1295        *   CREATOR:   External File Interface
+1296        *   DATE:      17OCT16
+1297        *   DESC:      Generated SAS Datastep Code
+1298        *   TEMPLATE SOURCE:  (None Specified.)
+1299        ***********************************************************************/
+1300           data WORK.DS_SIM_2    ;
+1301           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1302           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1303              informat rep best32. ;
+1304              informat seed best32. ;
+1305              informat id best32. ;
+1306              informat X1 best32. ;
+1307              informat X2 best32. ;
+1308              informat X3 best32. ;
+1309              informat X4 best32. ;
+1310              informat X5 best32. ;
+1311              informat y1 best32. ;
+1312              informat y2 best32. ;
+1313              format rep best12. ;
+1314              format seed best12. ;
+1315              format id best12. ;
+1316              format X1 best12. ;
+31                                        The SAS System            03:50 Monday, October 17, 2016
+
+1317              format X2 best12. ;
+1318              format X3 best12. ;
+1319              format X4 best12. ;
+1320              format X5 best12. ;
+1321              format y1 best12. ;
+1322              format y2 best12. ;
+1323           input
+1324                       rep
+1325                       seed
+1326                       id
+1327                       X1
+1328                       X2
+1329                       X3
+1330                       X4
+1331                       X5
+1332                       y1
+1333                       y2
+1334           ;
+1335           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1335     ! */
+1336           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44665,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 91.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_2 from RDATA.
+  
+  
+  
+NOTE: WORK.DS_SIM_2 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_2.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 11 variables.
+32                                        The SAS System            03:50 Monday, October 17, 2016
+
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_2                           *|
+|* Type of Analysis: ipc3d                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.IPC3D has 18 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 13-15.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.20 seconds
+      cpu time            0.12 seconds
+      
+
+
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: The data set WORK.IPC3D has 18 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1337        /**********************************************************************
+1338        *   PRODUCT:   SAS
+1339        *   VERSION:   9.3
+1340        *   CREATOR:   External File Interface
+1341        *   DATE:      17OCT16
+1342        *   DESC:      Generated SAS Datastep Code
+1343        *   TEMPLATE SOURCE:  (None Specified.)
+1344        ***********************************************************************/
+1345           data _null_;
+1346           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1347           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1348           file
+1348     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1348     ! \simulation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv' delimiter=',' DSD
+1348     ! DROPOVER lrecl=32767;
+1349           if _n_ = 1 then        /* write column names or labels */
+1350            do;
+1351              put
+1352                 "loop"
+1353              ','
+1354                 "Parameter"
+1355              ','
+1356                 "Estimate"
+1357              ','
+1358                 "StandardError"
+1359              ','
+33                                        The SAS System            03:50 Monday, October 17, 2016
+
+1360                 "DF"
+1361              ','
+1362                 "tValue"
+1363              ','
+1364                 "Probt"
+1365              ','
+1366                 "Alpha"
+1367              ','
+1368                 "Lower"
+1369              ','
+1370                 "Upper"
+1371              ','
+1372                 "Gradient"
+1373              ;
+1374            end;
+1375          set  WORK.IPC3D   end=EFIEOD;
+1376              format loop best12. ;
+1377              format Parameter $3. ;
+1378              format Estimate d8.4 ;
+1379              format StandardError d8.4 ;
+1380              format DF best4. ;
+1381              format tValue 7.2 ;
+1382              format Probt pvalue6.4 ;
+1383              format Alpha best6. ;
+1384              format Lower d8.4 ;
+1385              format Upper d8.4 ;
+1386              format Gradient best8. ;
+1387            do;
+1388              EFIOUT + 1;
+1389              put loop @;
+1390              put Parameter $ @;
+1391              put Estimate @;
+1392              put StandardError @;
+1393              put DF @;
+1394              put tValue @;
+1395              put Probt @;
+1396              put Alpha @;
+1397              put Lower @;
+1398              put Upper @;
+1399              put Gradient ;
+1400              ;
+1401            end;
+1402           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1402     ! */
+1403           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1404           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\IPC3D\IPC3D_2.csv,
+34                                        The SAS System            03:50 Monday, October 17, 2016
+
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 03:50:56 o'clo,
+      Create Time=16 October 2016 16:06:51 o'clo
+
+NOTE: 19 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1405       
+
+18 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv from WORK.IPC3D.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+NOTE: Deleting WORK.IPC3D (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_2 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1406       
+1407       proc printto log=log;
+1408       run;
+
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1176       
+1177       %analyze_sim_data(num_sim =1000, type=ipc3d, analyze_until =2);
+
+1178        /**********************************************************************
+1179        *   PRODUCT:   SAS
+1180        *   VERSION:   9.3
+1181        *   CREATOR:   External File Interface
+1182        *   DATE:      17OCT16
+1183        *   DESC:      Generated SAS Datastep Code
+1184        *   TEMPLATE SOURCE:  (None Specified.)
+1185        ***********************************************************************/
+1186           data WORK.DS_SIM_1    ;
+1187           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1188           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1189              informat rep best32. ;
+1190              informat seed best32. ;
+1191              informat id best32. ;
+1192              informat X1 best32. ;
+1193              informat X2 best32. ;
+1194              informat X3 best32. ;
+1195              informat X4 best32. ;
+1196              informat X5 best32. ;
+1197              informat y1 best32. ;
+1198              informat y2 best32. ;
+1199              format rep best12. ;
+1200              format seed best12. ;
+1201              format id best12. ;
+1202              format X1 best12. ;
+1203              format X2 best12. ;
+1204              format X3 best12. ;
+1205              format X4 best12. ;
+1206              format X5 best12. ;
+1207              format y1 best12. ;
+1208              format y2 best12. ;
+1209           input
+1210                       rep
+1211                       seed
+1212                       id
+1213                       X1
+1214                       X2
+1215                       X3
+1216                       X4
+27                                        The SAS System            04:14 Monday, October 17, 2016
+
+1217                       X5
+1218                       y1
+1219                       y2
+1220           ;
+1221           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1221     ! */
+1222           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44720,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 92.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_1 from RDATA.
+  
+  
+  
+NOTE: WORK.DS_SIM_1 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_1.
+NOTE: The data set WORK.DS_SIM_1 has 500 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_1                           *|
+|* Type of Analysis: ipc3d                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: The data set WORK.IPC3D has 18 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 11-12.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.11 seconds
+28                                        The SAS System            04:14 Monday, October 17, 2016
+
+      cpu time            0.10 seconds
+      
+
+
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: The data set WORK.IPC3D has 18 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1223        /**********************************************************************
+1224        *   PRODUCT:   SAS
+1225        *   VERSION:   9.3
+1226        *   CREATOR:   External File Interface
+1227        *   DATE:      17OCT16
+1228        *   DESC:      Generated SAS Datastep Code
+1229        *   TEMPLATE SOURCE:  (None Specified.)
+1230        ***********************************************************************/
+1231           data _null_;
+1232           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1233           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1234           file
+1234     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1234     ! \simulation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv' delimiter=',' DSD
+1234     ! DROPOVER lrecl=32767;
+1235           if _n_ = 1 then        /* write column names or labels */
+1236            do;
+1237              put
+1238                 "loop"
+1239              ','
+1240                 "Parameter"
+1241              ','
+1242                 "Estimate"
+1243              ','
+1244                 "StandardError"
+1245              ','
+1246                 "DF"
+1247              ','
+1248                 "tValue"
+1249              ','
+1250                 "Probt"
+1251              ','
+1252                 "Alpha"
+1253              ','
+1254                 "Lower"
+1255              ','
+1256                 "Upper"
+1257              ','
+1258                 "Gradient"
+1259              ;
+1260            end;
+29                                        The SAS System            04:14 Monday, October 17, 2016
+
+1261          set  WORK.IPC3D   end=EFIEOD;
+1262              format loop best12. ;
+1263              format Parameter $3. ;
+1264              format Estimate d8.4 ;
+1265              format StandardError d8.4 ;
+1266              format DF best4. ;
+1267              format tValue 7.2 ;
+1268              format Probt pvalue6.4 ;
+1269              format Alpha best6. ;
+1270              format Lower d8.4 ;
+1271              format Upper d8.4 ;
+1272              format Gradient best8. ;
+1273            do;
+1274              EFIOUT + 1;
+1275              put loop @;
+1276              put Parameter $ @;
+1277              put Estimate @;
+1278              put StandardError @;
+1279              put DF @;
+1280              put tValue @;
+1281              put Probt @;
+1282              put Alpha @;
+1283              put Lower @;
+1284              put Upper @;
+1285              put Gradient ;
+1286              ;
+1287            end;
+1288           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1288     ! */
+1289           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1290           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\IPC3D\IPC3D_1.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 04:14:06 o'clo,
+      Create Time=17 October 2016 04:14:06 o'clo
+
+NOTE: 19 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+30                                        The SAS System            04:14 Monday, October 17, 2016
+
+1291       
+
+18 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv from WORK.IPC3D.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_1.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.07 seconds
+      
+
+NOTE: Deleting WORK.IPC3D (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_1 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+1292        /**********************************************************************
+1293        *   PRODUCT:   SAS
+1294        *   VERSION:   9.3
+1295        *   CREATOR:   External File Interface
+1296        *   DATE:      17OCT16
+1297        *   DESC:      Generated SAS Datastep Code
+1298        *   TEMPLATE SOURCE:  (None Specified.)
+1299        ***********************************************************************/
+1300           data WORK.DS_SIM_2    ;
+1301           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1302           infile RDATA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1303              informat rep best32. ;
+1304              informat seed best32. ;
+1305              informat id best32. ;
+1306              informat X1 best32. ;
+1307              informat X2 best32. ;
+1308              informat X3 best32. ;
+1309              informat X4 best32. ;
+1310              informat X5 best32. ;
+1311              informat y1 best32. ;
+1312              informat y2 best32. ;
+1313              format rep best12. ;
+1314              format seed best12. ;
+1315              format id best12. ;
+1316              format X1 best12. ;
+31                                        The SAS System            04:14 Monday, October 17, 2016
+
+1317              format X2 best12. ;
+1318              format X3 best12. ;
+1319              format X4 best12. ;
+1320              format X5 best12. ;
+1321              format y1 best12. ;
+1322              format y2 best12. ;
+1323           input
+1324                       rep
+1325                       seed
+1326                       id
+1327                       X1
+1328                       X2
+1329                       X3
+1330                       X4
+1331                       X5
+1332                       y1
+1333                       y2
+1334           ;
+1335           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1335     ! */
+1336           run;
+
+NOTE: The infile RDATA is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\R\sim_data\sim_data_1000_2.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=44665,
+      Last Modified=02 October 2016 22:19:41 o'clo,
+      Create Time=02 October 2016 22:19:41 o'clo
+
+NOTE: 500 records were read from the infile RDATA.
+      The minimum record length was 81.
+      The maximum record length was 91.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+500 rows created in WORK.DS_SIM_2 from RDATA.
+  
+  
+  
+NOTE: WORK.DS_SIM_2 data set was successfully created.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 10 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 500 observations read from the data set WORK.DS_SIM_2.
+NOTE: The data set WORK.DS_SIM_2 has 500 observations and 11 variables.
+32                                        The SAS System            04:14 Monday, October 17, 2016
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+|*----------------------------------------------*|
+|* Dataset: ds_sim_2                           *|
+|* Type of Analysis: ipc3d                      *|
+|*----------------------------------------------*|
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.IPC3D has 18 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 13-15.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.11 seconds
+      
+
+
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: The data set WORK.IPC3D has 18 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+1337        /**********************************************************************
+1338        *   PRODUCT:   SAS
+1339        *   VERSION:   9.3
+1340        *   CREATOR:   External File Interface
+1341        *   DATE:      17OCT16
+1342        *   DESC:      Generated SAS Datastep Code
+1343        *   TEMPLATE SOURCE:  (None Specified.)
+1344        ***********************************************************************/
+1345           data _null_;
+1346           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1347           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1348           file
+1348     ! 'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924
+1348     ! \simulation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv' delimiter=',' DSD
+1348     ! DROPOVER lrecl=32767;
+1349           if _n_ = 1 then        /* write column names or labels */
+1350            do;
+1351              put
+1352                 "loop"
+1353              ','
+1354                 "Parameter"
+1355              ','
+1356                 "Estimate"
+1357              ','
+1358                 "StandardError"
+1359              ','
+33                                        The SAS System            04:14 Monday, October 17, 2016
+
+1360                 "DF"
+1361              ','
+1362                 "tValue"
+1363              ','
+1364                 "Probt"
+1365              ','
+1366                 "Alpha"
+1367              ','
+1368                 "Lower"
+1369              ','
+1370                 "Upper"
+1371              ','
+1372                 "Gradient"
+1373              ;
+1374            end;
+1375          set  WORK.IPC3D   end=EFIEOD;
+1376              format loop best12. ;
+1377              format Parameter $3. ;
+1378              format Estimate d8.4 ;
+1379              format StandardError d8.4 ;
+1380              format DF best4. ;
+1381              format tValue 7.2 ;
+1382              format Probt pvalue6.4 ;
+1383              format Alpha best6. ;
+1384              format Lower d8.4 ;
+1385              format Upper d8.4 ;
+1386              format Gradient best8. ;
+1387            do;
+1388              EFIOUT + 1;
+1389              put loop @;
+1390              put Parameter $ @;
+1391              put Estimate @;
+1392              put StandardError @;
+1393              put DF @;
+1394              put tValue @;
+1395              put Probt @;
+1396              put Alpha @;
+1397              put Lower @;
+1398              put Upper @;
+1399              put Gradient ;
+1400              ;
+1401            end;
+1402           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+1402     ! */
+1403           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1404           run;
+
+NOTE: The file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv' is:
+      
+      Filename=C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160
+      924\simulation-2_Modified_20160924\SAS\Outputs\IPC3D\IPC3D_2.csv,
+34                                        The SAS System            04:14 Monday, October 17, 2016
+
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=17 October 2016 04:14:06 o'clo,
+      Create Time=17 October 2016 04:14:06 o'clo
+
+NOTE: 19 records were written to the file 
+      'C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv'.
+      The minimum record length was 63.
+      The maximum record length was 80.
+NOTE: There were 18 observations read from the data set WORK.IPC3D.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1405       
+
+18 records created in 
+C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simulation-
+2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv from WORK.IPC3D.
+  
+  
+NOTE: "C:\Users\HW1\Desktop\PhD_project_backup\Subproject_1\CodesInSubmittedPaper_R3_20160924\simu
+      lation-2_Modified_20160924/SAS/Outputs/IPC3D/IPC3D_2.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.07 seconds
+      
+
+NOTE: Deleting WORK.IPC3D (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Deleting WORK.DS_SIM_2 (memtype=DATA).
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+1406       
+1407       proc printto log=log;
+1408       run;
+
