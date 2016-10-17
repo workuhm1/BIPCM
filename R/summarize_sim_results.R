@@ -2,7 +2,7 @@
 ## ********************************************************************************
 ## Copyright: FSW, Leiden University, The Netherlands
 ## ********************************************************************************
-##  Program     : summarize_sim_results_IPC2D_indep.R
+##  Program     : summarize_sim_results.R
 ##  Author      : Hailemichael M. Worku (hmetiku@yahoo.com)
 ##  Date        : 2010 - 2015
 ##  Description : The script calculates bias, rmse and coverage of simulation 
