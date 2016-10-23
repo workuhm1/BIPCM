@@ -1,7 +1,8 @@
-1                                         The SAS System            04:14 Monday, October 17, 2016
+1                                         The SAS System            13:29 Sunday, October 23, 2016
 
 NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
 NOTE: SAS (r) Proprietary Software 9.3 (TS1M2) 
+NOTE: This session is executing on the W32_7PRO  platform.
 
 
 
@@ -10,8 +11,8 @@ NOTE: Enhanced analytical products:
 SAS/STAT 12.1, SAS/ETS 12.1, SAS/OR 12.2, SAS/IML 12.1, SAS/QC 12.1
 
 NOTE: SAS initialization used:
-      real time           1.52 seconds
-      cpu time            0.28 seconds
+      real time           44.71 seconds
+      cpu time            0.35 seconds
       
 1          /*******************************************************************************
 2            Copyright: FSW, Leiden University, The Netherlands
@@ -51,7 +52,7 @@ NOTE: SAS initialization used:
 359        %include MACRO(fit_BIPC.sas);
 484        
 485        /* --------------------------------------------- */
-2                                         The SAS System            04:14 Monday, October 17, 2016
+2                                         The SAS System            13:29 Sunday, October 23, 2016
 
 486        /* Macro for fitting different dimensional IPC   */
 487        /* models and IPC model on simulated data.       */
@@ -106,7 +107,7 @@ NOTE: SAS initialization used:
 535                            root_path  =&&root_path,
 536                            loop       =&i);
 537        										
-3                                         The SAS System            04:14 Monday, October 17, 2016
+3                                         The SAS System            13:29 Sunday, October 23, 2016
 
 538        				%end;
 539        				
@@ -134,68 +135,68 @@ NOTE: SAS initialization used:
 561        run;
 
 NOTE: PROCEDURE PRINTTO used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.00 seconds
       
 
-795        
-796        filename logout1;
+114567     
+114568     filename logout1;
 NOTE: Fileref LOGOUT1 has been deassigned.
-797        
-798        
-799        /* Fit 2-dimensional IPC model with free class points, IPC2D_FREE. */
-800        filename logout2 "&olog.\&prog_name._IPC2D_Free.log";
-801        
-802        proc printto log=logout2;
-803        run;
+114569     
+114570     
+114571     /* Fit 2-dimensional IPC model with free class points, IPC2D_FREE. */
+114572     filename logout2 "&olog.\&prog_name._IPC2D_Free.log";
+4332                                      The SAS System            13:29 Sunday, October 23, 2016
+
+114573     
+114574     proc printto log=logout2;
+114575     run;
 
 NOTE: PROCEDURE PRINTTO used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
-1167       
-1168       filename logout2;
+293581     
+293582     filename logout2;
 NOTE: Fileref LOGOUT2 has been deassigned.
-1169       
-1170       
-26                                        The SAS System            04:14 Monday, October 17, 2016
-
-1171       /* Fit 3-dimensional IPC model, IPC3D. */
-1172       filename logout3 "&olog.\&prog_name._IPC3D.log";
-1173       
-1174       proc printto log=logout3;
-1175       run;
+293583     
+293584     
+293585     /* Fit 3-dimensional IPC model, IPC3D. */
+293586     filename logout3 "&olog.\&prog_name._IPC3D.log";
+293587     
+293588     proc printto log=logout3;
+293589     run;
 
 NOTE: PROCEDURE PRINTTO used (Total process time):
+15099                                     The SAS System            13:29 Sunday, October 23, 2016
+
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
-1409       
-1410       filename logout3;
-35                                        The SAS System            04:14 Monday, October 17, 2016
-
+407595     
+407596     filename logout3;
 NOTE: Fileref LOGOUT3 has been deassigned.
-1411       
-1412       
-1413       /* Fit Bivariate IPC model, BIPC. */
-1414       filename logout4 "&olog.\&prog_name._BIPC.log";
-1415       
-1416       proc printto log=logout4;
-1417       run;
+407597     
+407598     
+407599     /* Fit Bivariate IPC model, BIPC. */
+407600     filename logout4 "&olog.\&prog_name._BIPC.log";
+407601     
+407602     proc printto log=logout4;
+407603     run;
 
 NOTE: PROCEDURE PRINTTO used (Total process time):
-      real time           0.00 seconds
+      real time           0.06 seconds
       cpu time            0.00 seconds
       
 
-1781       
-1782       filename logout4;
+586609     
+586610     filename logout4;
 NOTE: Fileref LOGOUT4 has been deassigned.
 
 NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
 NOTE: The SAS System used:
-      real time           5.73 seconds
-      cpu time            2.99 seconds
+      real time           51:10.98
+      cpu time            22:31.21
       
