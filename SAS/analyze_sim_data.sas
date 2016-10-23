@@ -111,7 +111,7 @@ filename logout1 "&olog.\&prog_name._IPC2D_Indep.log";
 proc printto log=logout1;
 run;
 
-%analyze_sim_data(num_sim =1000, type=ipc2d_indep, analyze_until =2);
+%analyze_sim_data(num_sim =1000, type=ipc2d_indep, analyze_until =1000);
 
 proc printto log=log;
 run;
@@ -125,7 +125,7 @@ filename logout2 "&olog.\&prog_name._IPC2D_Free.log";
 proc printto log=logout2;
 run;
 
-%analyze_sim_data(num_sim =1000, type=ipc2d_free, analyze_until =2);
+%analyze_sim_data(num_sim =1000, type=ipc2d_free, analyze_until =1000);
 
 proc printto log=log;
 run;
@@ -139,7 +139,7 @@ filename logout3 "&olog.\&prog_name._IPC3D.log";
 proc printto log=logout3;
 run;
 
-%analyze_sim_data(num_sim =1000, type=ipc3d, analyze_until =2);
+%analyze_sim_data(num_sim =1000, type=ipc3d, analyze_until =1000);
 
 proc printto log=log;
 run;
@@ -153,7 +153,7 @@ filename logout4 "&olog.\&prog_name._BIPC.log";
 proc printto log=logout4;
 run;
 
-%analyze_sim_data(num_sim =1000, type=bipc, analyze_until =2);
+%analyze_sim_data(num_sim =1000, type=bipc, analyze_until =1000);
 
 proc printto log=log;
 run;

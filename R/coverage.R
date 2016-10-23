@@ -1,4 +1,4 @@
-coverage <-function(dat, beta_true){
+coverage <- function(dat, beta_true){
   ## ------------------------- ##
   ## Calculates Coverage rate  ##
   ## ------------------------- ##

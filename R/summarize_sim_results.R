@@ -5,129 +5,72 @@
 ##  Program     : summarize_sim_results.R
 ##  Author      : Hailemichael M. Worku (hmetiku@yahoo.com)
 ##  Date        : 2010 - 2015
-##  Description : The script calculates bias, rmse and coverage of simulation 
-##                results obtained from 2-dimensional IPC model with 
-##                fixed class points (IPC2D_indep).
+##  Description : The script summarizes all results obtained from simulation study.
 ##  Remarks     : N/A
 ## ********************************************************************************
 
+
 ## Import source codes
-source("merge_sim_results.R")
 source("bias.R")
 source("rmse.R")
 source("coverage.R")
-
-## Merge all simulation estimates
-Mres(Nrep = 2, type="IPC2D_indep",     file_name = "combined_IPC2D_indep")
-Mres(Nrep = 2, type="IPC2D_free_marg", file_name = "combined_IPC2D_free_marg")
-Mres(Nrep = 2, type="IPC2D_free_asso", file_name = "combined_IPC2D_free_asso")
-Mres(Nrep = 2, type="BIPC_marg",       file_name = "combined_BIPC_marg")
-Mres(Nrep = 2, type="BIPC_asso",       file_name = "combined_BIPC_assoc")
-Mres(Nrep = 2, type="IPC3D",           file_name = "combined_IPC3D")
+source("eval_sim_results.R")
 
 
-## Import combined results for analysis
-IPC2D_indep <- read.csv(file = "../SAS/Outputs/IPC2D_indep/combined_IPC2D_indep.csv")
+## Import true values
+true_val_marg <- read.csv(file = "./sim_data/True_Values_marg.csv")
+true_val_asso <- read.csv(file = "./sim_data/True_Values_asso.csv")
+true_val_3D   <- read.csv(file = "./sim_data/True_Values_3D.csv")
+
+## Import combined data
+IPC2D_indep     <- read.csv(file = "../SAS/Outputs/IPC2D_indep/combined_IPC2D_indep.csv")
+IPC2D_free_marg <- read.csv(file = "../SAS/Outputs/IPC2D_free_marg/combined_IPC2D_free_marg.csv")
+IPC2D_free_asso <- read.csv(file = "../SAS/Outputs/IPC2D_free_asso/combined_IPC2D_free_asso.csv")
+BIPC_marg       <- read.csv(file = "../SAS/Outputs/BIPC_marg/combined_BIPC_marg.csv")
+BIPC_asso       <- read.csv(file = "../SAS/Outputs/BIPC_asso/combined_BIPC_asso.csv")
+IPC3D           <- read.csv(file = "../SAS/Outputs/IPC3D/combined_IPC3D.csv")
 
 
-## ----------------------------- ##
-## b0r: Bias, RMSE and Coverage  ##
-## ----------------------------- ##
-b01_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b01", ]
-b02_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b02", ]
+## ------------ ##
+## IPC2D_indep  ##
+## ------------ ##
+out_IPC2D_indep <- eval_sim(true_vect = true_val_marg, type_parm = 1, dsin = IPC2D_indep)
+write.table(x = out_IPC2D_indep, file = "../SAS/Outputs/IPC2D_indep/out_IPC2D_indep.csv",
+            sep = ",", row.names = FALSE, col.names = TRUE)
 
-## b01
-Bias(dat = b01_IPC2D_indep, beta_true = -1.7)
-RMSE(dat = b01_IPC2D_indep, beta_true = -1.7)
-coverage(dat = b01_IPC2D_indep, beta_true = -1.7)
+## ----------------- ##
+## IPC2D_free_marg   ##
+## ----------------- ##
+out_IPC2D_free_marg <- eval_sim(true_vect = true_val_marg, type_parm = 1, dsin = IPC2D_free_marg)
+write.table(x = out_IPC2D_free_marg, file = "../SAS/Outputs/IPC2D_free_marg/out_IPC2D_free_marg.csv",
+            sep = ",", row.names = FALSE, col.names = TRUE)
 
-## b02
-Bias(dat = b02_IPC2D_indep, beta_true = -1.0)
-RMSE(dat = b02_IPC2D_indep, beta_true = -1.0)
-coverage(dat = b02_IPC2D_indep, beta_true = -1.0)
+## ----------------- ##
+## IPC2D_free_asso   ##
+## ----------------- ##
+out_IPC2D_free_asso <- eval_sim(true_vect = true_val_asso, type_parm = 2, dsin = IPC2D_free_asso)
+write.table(x = out_IPC2D_free_asso, file = "../SAS/Outputs/IPC2D_free_asso/out_IPC2D_free_asso.csv",
+            sep = ",", row.names = FALSE, col.names = TRUE)
 
+## ----------- ##
+## BIPC_marg   ##
+## ----------- ##
+out_BIPC_marg <- eval_sim(true_vect = true_val_marg, type_parm = 1, dsin = BIPC_marg)
+write.table(x = out_BIPC_marg, file = "../SAS/Outputs/BIPC_marg/out_BIPC_marg.csv",
+            sep = ",", row.names = FALSE, col.names = TRUE)
 
-## ----------------------------- ##
-## b1r: Bias, RMSE and Coverage  ##
-## ----------------------------- ##
-b11_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b11", ]
-b12_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b12", ]
+## ----------- ##
+## BIPC_asso   ##
+## ----------- ##
+out_BIPC_asso <- eval_sim(true_vect = true_val_asso, type_parm = 2, dsin = BIPC_asso)
+write.table(x = out_BIPC_asso, file = "../SAS/Outputs/BIPC_asso/out_BIPC_asso.csv",
+            sep = ",", row.names = FALSE, col.names = TRUE)
 
-## b11
-Bias(dat = b11_IPC2D_indep, beta_true = 0.0)
-RMSE(dat = b11_IPC2D_indep, beta_true = 0.0)
-coverage(dat = b11_IPC2D_indep, beta_true = 0.0)
+## ----------- ##
+## IPC3D       ##
+## ----------- ##
+out_IPC3D <- eval_sim(true_vect = true_val_3D, type_parm = 3, dsin = IPC3D)
+write.table(x = out_IPC3D, file = "../SAS/Outputs/IPC3D/out_IPC3D.csv",
+            sep = ",", row.names = FALSE, col.names = TRUE)
 
-## b12
-Bias(dat = b12_IPC2D_indep, beta_true = -0.25)
-RMSE(dat = b12_IPC2D_indep, beta_true = -0.25)
-coverage(dat = b12_IPC2D_indep, beta_true = -0.25)
-
-
-## ----------------------------- ##
-## b2r: Bias, RMSE and Coverage  ##
-## ----------------------------- ##
-b21_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b21", ]
-b22_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b22", ]
-
-## b21
-Bias(dat = b21_IPC2D_indep, beta_true = 0.2)
-RMSE(dat = b21_IPC2D_indep, beta_true = 0.2)
-coverage(dat = b21_IPC2D_indep, beta_true = 0.2)
-
-## b22
-Bias(dat = b22_IPC2D_indep, beta_true = 0.0)
-RMSE(dat = b22_IPC2D_indep, beta_true = 0.0)
-coverage(dat = b22_IPC2D_indep, beta_true = 0.0)
-
-
-## ----------------------------- ##
-## b3r: Bias, RMSE and Coverage  ##
-## ----------------------------- ##
-b31_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b31", ]
-b32_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b32", ]
-
-## b31
-Bias(dat = b31_IPC2D_indep, beta_true = -0.15)
-RMSE(dat = b31_IPC2D_indep, beta_true = -0.15)
-coverage(dat = b31_IPC2D_indep, beta_true = -0.15)
-
-## b32
-Bias(dat = b32_IPC2D_indep, beta_true = -0.15)
-RMSE(dat = b32_IPC2D_indep, beta_true = -0.15)
-coverage(dat = b32_IPC2D_indep, beta_true = -0.15)
-
-
-## ----------------------------- ##
-## b4r: Bias, RMSE and Coverage  ##
-## ----------------------------- ##
-b41_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b41", ]
-b42_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b42", ]
-
-## b41
-Bias(dat = b41_IPC2D_indep, beta_true = 1.05)
-RMSE(dat = b41_IPC2D_indep, beta_true = 1.05)
-coverage(dat = b41_IPC2D_indep, beta_true = 1.05)
-
-## b42
-Bias(dat = b42_IPC2D_indep, beta_true = 1.15)
-RMSE(dat = b42_IPC2D_indep, beta_true = 1.15)
-coverage(dat = b42_IPC2D_indep, beta_true = 1.15)
-
-
-## ----------------------------- ##
-## b5r: Bias, RMSE and Coverage  ##
-## ----------------------------- ##
-b51_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b51", ]
-b52_IPC2D_indep <- IPC2D_indep[IPC2D_indep$Parameter=="b52", ]
-
-## b51
-Bias(dat = b51_IPC2D_indep, beta_true = -0.45)
-RMSE(dat = b51_IPC2D_indep, beta_true = -0.45)
-coverage(dat = b51_IPC2D_indep, beta_true = -0.45)
-
-## b52
-Bias(dat = b52_IPC2D_indep, beta_true = -0.15)
-RMSE(dat = b52_IPC2D_indep, beta_true = -0.15)
-coverage(dat = b52_IPC2D_indep, beta_true = -0.15)
 
