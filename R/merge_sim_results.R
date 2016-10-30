@@ -13,7 +13,7 @@
 source("merge.R")
 
 ## number of simulation
-num_rep <- 2
+num_rep <- 1000
 
 ## Merge simulation results
 Mres(Nrep = num_rep, type="IPC2D_indep",     file_name = "combined_IPC2D_indep")

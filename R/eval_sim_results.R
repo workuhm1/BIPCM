@@ -38,8 +38,8 @@ eval_sim <- function(true_vect, type_parm, dsin) {
     }
     
     ## calculate efficiency statistics
-    bias     <- round(Bias(dat = dat_parm, beta_true = parm_val), 2)
-    rmse     <- round(RMSE(dat = dat_parm, beta_true = parm_val), 2)
+    bias     <- round(Bias(dat = dat_parm, beta_true = parm_val), 3)
+    rmse     <- round(RMSE(dat = dat_parm, beta_true = parm_val), 3)
     coverage <- round(coverage(dat = dat_parm, beta_true = parm_val), 2)
     
     ## save the results
