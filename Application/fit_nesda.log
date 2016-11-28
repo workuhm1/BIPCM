@@ -1,0 +1,1450 @@
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.01 seconds
+      
+
+514        
+515        
+516        /* ---------------- */
+517        /* Read NESDA data  */
+518        /* ---------------- */
+519        %read_rawdata(dsin=NESDA, dsin_path=&rawdata, drop_vars =%str(mdd pd sp));
+
+520         /**********************************************************************
+521         *   PRODUCT:   SAS
+522         *   VERSION:   9.3
+523         *   CREATOR:   External File Interface
+524         *   DATE:      28NOV16
+525         *   DESC:      Generated SAS Datastep Code
+526         *   TEMPLATE SOURCE:  (None Specified.)
+527         ***********************************************************************/
+528            data WORK.NESDA    ;
+529            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+530            infile NESDA delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+531               informat pident best32. ;
+532               informat Age best32. ;
+533               informat edu best32. ;
+534               informat neurot best32. ;
+535               informat extrave best32. ;
+536               informat openes best32. ;
+537               informat agreeab best32. ;
+538               informat conscie best32. ;
+539               informat dyst best32. ;
+540               informat mdd best32. ;
+541               informat gad best32. ;
+542               informat sp best32. ;
+543               informat pd best32. ;
+544               informat gender best32. ;
+545               format pident best12. ;
+546               format Age best12. ;
+547               format edu best12. ;
+548               format neurot best12. ;
+549               format extrave best12. ;
+550               format openes best12. ;
+551               format agreeab best12. ;
+552               format conscie best12. ;
+553               format dyst best12. ;
+554               format mdd best12. ;
+555               format gad best12. ;
+556               format sp best12. ;
+557               format pd best12. ;
+558               format gender best12. ;
+559            input
+560                        pident
+561                        Age
+3                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+562                        edu
+563                        neurot
+564                        extrave
+565                        openes
+566                        agreeab
+567                        conscie
+568                        dyst
+569                        mdd
+570                        gad
+571                        sp
+572                        pd
+573                        gender
+574            ;
+575            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+576            run;
+
+NOTE: The infile NESDA is:
+      Filename=G:\PhD_project\subproject_1\Codes\NESDA\NESDA.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=170013,
+      Last Modified=27 November 2016 16:45:06 o'cl,
+      Create Time=16 September 2016 15:00:00 o'c
+
+NOTE: 2938 records were read from the infile NESDA.
+      The minimum record length was 49.
+      The maximum record length was 60.
+NOTE: The data set WORK.NESDA has 2938 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+2938 rows created in WORK.NESDA from NESDA.
+  
+  
+  
+NOTE: WORK.NESDA data set was successfully created.
+NOTE: The data set WORK.NESDA has 2938 observations and 14 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.13 seconds
+      cpu time            0.11 seconds
+      
+
+NOTE: Libref OUTDT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: G:\PhD_project\subproject_1\Codes\NESDA
+
+NOTE: There were 2938 observations read from the data set WORK.NESDA.
+NOTE: The data set OUTDT.NESDA has 2938 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.14 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: There were 2938 observations read from the data set WORK.NESDA.
+NOTE: The data set WORK.NESDA2 has 2938 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+4                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2938 observations read from the data set WORK.NESDA2.
+NOTE: The data set WORK.NESDA2 has 2938 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 2938 observations read from the data set WORK.NESDA2.
+NOTE: The data set OUTDT.NESDA_BIV has 2938 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.16 seconds
+      cpu time            0.03 seconds
+      
+
+577        
+578        
+579        /* --------------------------------------------------- */
+580        /* Fit 2-dimensional IPC model with fixed class points */
+581        /* --------------------------------------------------- */
+582        * All predectors ;
+583        %fit_2IPC_indep(dsin=work.nesda2, is_parms_all=Y, parms_lst=, is_var_all=Y, eta_lst=, dsout=out_2IPC_indep_all,
+584                        debugme=N);
+### -------------------------
+### Model: fit_2IPC_indep
+### -------------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_2IPC_INDEP_ALL has 18 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 1-2.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.49 seconds
+      cpu time            0.36 seconds
+      
+
+
+585         /**********************************************************************
+586         *   PRODUCT:   SAS
+587         *   VERSION:   9.3
+588         *   CREATOR:   External File Interface
+589         *   DATE:      28NOV16
+590         *   DESC:      Generated SAS Datastep Code
+591         *   TEMPLATE SOURCE:  (None Specified.)
+592         ***********************************************************************/
+593            data _null_;
+594            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+595            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+596            file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_all.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+597            if _n_ = 1 then        /* write column names or labels */
+598             do;
+599               put
+600                  "Parameter"
+601               ','
+602                  "Estimate"
+5                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+603               ','
+604                  "StandardError"
+605               ','
+606                  "DF"
+607               ','
+608                  "tValue"
+609               ','
+610                  "Probt"
+611               ','
+612                  "Alpha"
+613               ','
+614                  "Lower"
+615               ','
+616                  "Upper"
+617               ','
+618                  "Gradient"
+619               ;
+620             end;
+621           set  OUT_2IPC_INDEP_ALL   end=EFIEOD;
+622               format Parameter $3. ;
+623               format Estimate d8.4 ;
+624               format StandardError d8.4 ;
+625               format DF best4. ;
+626               format tValue 7.2 ;
+627               format Probt pvalue6.4 ;
+628               format Alpha best6. ;
+629               format Lower d8.4 ;
+630               format Upper d8.4 ;
+631               format Gradient best8. ;
+632             do;
+633               EFIOUT + 1;
+634               put Parameter $ @;
+635               put Estimate @;
+636               put StandardError @;
+637               put DF @;
+638               put tValue @;
+639               put Probt @;
+640               put Alpha @;
+641               put Lower @;
+642               put Upper @;
+643               put Gradient ;
+644               ;
+645             end;
+646            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+647            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+648            run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_all.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_2IPC_indep_all.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:48 o'cl,
+      Create Time=27 November 2016 20:45:02 o'cl
+
+NOTE: 19 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_all.csv'.
+      The minimum record length was 61.
+      The maximum record length was 75.
+NOTE: There were 18 observations read from the data set WORK.OUT_2IPC_INDEP_ALL.
+NOTE: DATA statement used (Total process time):
+6                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+18 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_all.csv from OUT_2IPC_INDEP_ALL.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_all.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.13 seconds
+      cpu time            0.07 seconds
+      
+
+649        
+650        * Final model ;
+651        %let parms_in = %NRSTR(b01 - b02 = 0
+652                               b11 - b12 = 0
+653                               b21 - b22 = 0
+654                               b31 - b32 = 0
+655                               b41 - b42 = 0
+656                               b51 - b52 = 0);
+657        
+658        %let eta_in = %NRSTR(eta1 = b01 + b11*gender + b21*age + b31*edu + b41*neurot + b51*extrave ;
+659                             eta2 = b02 + b12*gender + b22*age + b32*edu + b42*neurot + b52*extrave ;
+660                            );
+661        
+662        %fit_2IPC_indep(dsin=work.nesda2, is_parms_all=N, parms_lst=&parms_in., is_var_all=N, eta_lst=&eta_in.,
+662      ! dsout=out_2IPC_indep_final,
+663                        debugme=N);
+### -------------------------
+### Model: fit_2IPC_indep
+### -------------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: The data set WORK.OUT_2IPC_INDEP_FINAL has 12 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 3-4.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.33 seconds
+      cpu time            0.21 seconds
+      
+
+
+664         /**********************************************************************
+665         *   PRODUCT:   SAS
+666         *   VERSION:   9.3
+667         *   CREATOR:   External File Interface
+668         *   DATE:      28NOV16
+669         *   DESC:      Generated SAS Datastep Code
+670         *   TEMPLATE SOURCE:  (None Specified.)
+671         ***********************************************************************/
+672            data _null_;
+673            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+674            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+675            file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_final.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+676            if _n_ = 1 then        /* write column names or labels */
+677             do;
+678               put
+679                  "Parameter"
+680               ','
+7                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+681                  "Estimate"
+682               ','
+683                  "StandardError"
+684               ','
+685                  "DF"
+686               ','
+687                  "tValue"
+688               ','
+689                  "Probt"
+690               ','
+691                  "Alpha"
+692               ','
+693                  "Lower"
+694               ','
+695                  "Upper"
+696               ','
+697                  "Gradient"
+698               ;
+699             end;
+700           set  OUT_2IPC_INDEP_FINAL   end=EFIEOD;
+701               format Parameter $3. ;
+702               format Estimate d8.4 ;
+703               format StandardError d8.4 ;
+704               format DF best4. ;
+705               format tValue 7.2 ;
+706               format Probt pvalue6.4 ;
+707               format Alpha best6. ;
+708               format Lower d8.4 ;
+709               format Upper d8.4 ;
+710               format Gradient best8. ;
+711             do;
+712               EFIOUT + 1;
+713               put Parameter $ @;
+714               put Estimate @;
+715               put StandardError @;
+716               put DF @;
+717               put tValue @;
+718               put Probt @;
+719               put Alpha @;
+720               put Lower @;
+721               put Upper @;
+722               put Gradient ;
+723               ;
+724             end;
+725            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+726            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+727            run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_final.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_2IPC_indep_final.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:48 o'cl,
+      Create Time=27 November 2016 22:04:18 o'cl
+
+NOTE: 13 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_final.csv'.
+      The minimum record length was 63.
+      The maximum record length was 75.
+NOTE: There were 12 observations read from the data set WORK.OUT_2IPC_INDEP_FINAL.
+8                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+12 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_final.csv from OUT_2IPC_INDEP_FINAL.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_indep_final.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.14 seconds
+      cpu time            0.11 seconds
+      
+
+728        
+729        
+730        /* --------------------------------------------------- */
+731        /* Fit 2-dimensional IPC model with free class points  */
+732        /* --------------------------------------------------- */
+733        * All predectors ;
+734        %fit_ipc2D_free(dsin=work.nesda2, is_parms_all=Y, parms_lst=, is_var_all=Y, eta_lst=, dsout=out_2IPC_free_all,
+735                        debugme=N);
+### -------------------------
+### Model: fit_ipc2D_free
+### -------------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_2IPC_FREE_ALL_ASSO has 9 observations and 9 variables.
+NOTE: The data set WORK.OUT_2IPC_FREE_ALL_MARG has 20 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 5-7.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.68 seconds
+      cpu time            0.48 seconds
+      
+
+
+736         /**********************************************************************
+737         *   PRODUCT:   SAS
+738         *   VERSION:   9.3
+739         *   CREATOR:   External File Interface
+740         *   DATE:      28NOV16
+741         *   DESC:      Generated SAS Datastep Code
+742         *   TEMPLATE SOURCE:  (None Specified.)
+743         ***********************************************************************/
+744            data _null_;
+745            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+746            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+747            file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_marg.csv' delimiter=',' DSD DROPOVER
+747      ! lrecl=32767;
+748            if _n_ = 1 then        /* write column names or labels */
+749             do;
+750               put
+751                  "Parameter"
+752               ','
+753                  "Estimate"
+754               ','
+755                  "StandardError"
+756               ','
+9                                                          The SAS System                            21:08 Monday, November 28, 2016
+
+757                  "DF"
+758               ','
+759                  "tValue"
+760               ','
+761                  "Probt"
+762               ','
+763                  "Alpha"
+764               ','
+765                  "Lower"
+766               ','
+767                  "Upper"
+768               ','
+769                  "Gradient"
+770               ;
+771             end;
+772           set  OUT_2IPC_FREE_ALL_MARG   end=EFIEOD;
+773               format Parameter $4. ;
+774               format Estimate d8.4 ;
+775               format StandardError d8.4 ;
+776               format DF best4. ;
+777               format tValue 7.2 ;
+778               format Probt pvalue6.4 ;
+779               format Alpha best6. ;
+780               format Lower d8.4 ;
+781               format Upper d8.4 ;
+782               format Gradient best8. ;
+783             do;
+784               EFIOUT + 1;
+785               put Parameter $ @;
+786               put Estimate @;
+787               put StandardError @;
+788               put DF @;
+789               put tValue @;
+790               put Probt @;
+791               put Alpha @;
+792               put Lower @;
+793               put Upper @;
+794               put Gradient ;
+795               ;
+796             end;
+797            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+798            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+799            run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_marg.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_2IPC_free_all_marg.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:48 o'cl,
+      Create Time=28 November 2016 21:27:07 o'cl
+
+NOTE: 21 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_marg.csv'.
+      The minimum record length was 61.
+      The maximum record length was 75.
+NOTE: There were 20 observations read from the data set WORK.OUT_2IPC_FREE_ALL_MARG.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+10                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+
+20 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_marg.csv from OUT_2IPC_FREE_ALL_MARG.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_marg.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.04 seconds
+      
+
+
+800         /**********************************************************************
+801         *   PRODUCT:   SAS
+802         *   VERSION:   9.3
+803         *   CREATOR:   External File Interface
+804         *   DATE:      28NOV16
+805         *   DESC:      Generated SAS Datastep Code
+806         *   TEMPLATE SOURCE:  (None Specified.)
+807         ***********************************************************************/
+808            data _null_;
+809            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+810            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+811            file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_asso.csv' delimiter=',' DSD DROPOVER
+811      ! lrecl=32767;
+812            if _n_ = 1 then        /* write column names or labels */
+813             do;
+814               put
+815                  "Label"
+816               ','
+817                  "Estimate"
+818               ','
+819                  "StandardError"
+820               ','
+821                  "DF"
+822               ','
+823                  "tValue"
+824               ','
+825                  "Probt"
+826               ','
+827                  "Alpha"
+828               ','
+829                  "Lower"
+830               ','
+831                  "Upper"
+832               ;
+833             end;
+834           set  OUT_2IPC_FREE_ALL_ASSO   end=EFIEOD;
+835               format Label $3. ;
+836               format Estimate d8.4 ;
+837               format StandardError d8.4 ;
+838               format DF best4. ;
+839               format tValue 7.2 ;
+840               format Probt pvalue6.4 ;
+841               format Alpha best6. ;
+842               format Lower d8.4 ;
+843               format Upper d8.4 ;
+844             do;
+845               EFIOUT + 1;
+11                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+846               put Label $ @;
+847               put Estimate @;
+848               put StandardError @;
+849               put DF @;
+850               put tValue @;
+851               put Probt @;
+852               put Alpha @;
+853               put Lower @;
+854               put Upper ;
+855               ;
+856             end;
+857            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+858            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+859            run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_asso.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_2IPC_free_all_asso.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:48 o'cl,
+      Create Time=28 November 2016 21:27:07 o'cl
+
+NOTE: 10 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_asso.csv'.
+      The minimum record length was 53.
+      The maximum record length was 62.
+NOTE: There were 9 observations read from the data set WORK.OUT_2IPC_FREE_ALL_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+9 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_asso.csv from OUT_2IPC_FREE_ALL_ASSO.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_all_asso.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.06 seconds
+      
+
+860        
+861        * Final model ;
+862        %let parms_in = %NRSTR(b01 - b02 = 0
+863                               b11 - b12 = 0
+864                               b21 - b22 = 0
+865                               b31 - b32 = 0
+866                               b41 - b42 = 0
+867                               b51 - b52 = 0
+868                               phi1 = 0.01
+869                               phi2 = 0.01);
+870        
+871        %let eta_in = %NRSTR(eta1 = b01 + b11*gender + b21*age + b31*edu + b41*neurot + b51*extrave ;
+872                             eta2 = b02 + b12*gender + b22*age + b32*edu + b42*neurot + b52*extrave ;
+873                            );
+874        
+875        %fit_ipc2D_free(dsin=work.nesda2, is_parms_all=N, parms_lst=&parms_in., is_var_all=N, eta_lst=&eta_in.,
+875      ! dsout=out_2IPC_free_final,
+876                        debugme=N);
+### -------------------------
+12                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+### Model: fit_ipc2D_free
+### -------------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_2IPC_FREE_FINAL_ASSO has 6 observations and 9 variables.
+NOTE: The data set WORK.OUT_2IPC_FREE_FINAL_MARG has 14 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 8-10.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.39 seconds
+      cpu time            0.32 seconds
+      
+
+
+877         /**********************************************************************
+878         *   PRODUCT:   SAS
+879         *   VERSION:   9.3
+880         *   CREATOR:   External File Interface
+881         *   DATE:      28NOV16
+882         *   DESC:      Generated SAS Datastep Code
+883         *   TEMPLATE SOURCE:  (None Specified.)
+884         ***********************************************************************/
+885            data _null_;
+886            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+887            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+888            file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_marg.csv' delimiter=',' DSD DROPOVER
+888      ! lrecl=32767;
+889            if _n_ = 1 then        /* write column names or labels */
+890             do;
+891               put
+892                  "Parameter"
+893               ','
+894                  "Estimate"
+895               ','
+896                  "StandardError"
+897               ','
+898                  "DF"
+899               ','
+900                  "tValue"
+901               ','
+902                  "Probt"
+903               ','
+904                  "Alpha"
+905               ','
+906                  "Lower"
+907               ','
+908                  "Upper"
+909               ','
+910                  "Gradient"
+911               ;
+912             end;
+913           set  OUT_2IPC_FREE_FINAL_MARG   end=EFIEOD;
+914               format Parameter $4. ;
+915               format Estimate d8.4 ;
+916               format StandardError d8.4 ;
+917               format DF best4. ;
+918               format tValue 7.2 ;
+919               format Probt pvalue6.4 ;
+920               format Alpha best6. ;
+13                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+921               format Lower d8.4 ;
+922               format Upper d8.4 ;
+923               format Gradient best8. ;
+924             do;
+925               EFIOUT + 1;
+926               put Parameter $ @;
+927               put Estimate @;
+928               put StandardError @;
+929               put DF @;
+930               put tValue @;
+931               put Probt @;
+932               put Alpha @;
+933               put Lower @;
+934               put Upper @;
+935               put Gradient ;
+936               ;
+937             end;
+938            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+939            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+940            run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_marg.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_2IPC_free_final_marg.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:50 o'cl,
+      Create Time=28 November 2016 21:32:34 o'cl
+
+NOTE: 15 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_marg.csv'.
+      The minimum record length was 61.
+      The maximum record length was 75.
+NOTE: There were 14 observations read from the data set WORK.OUT_2IPC_FREE_FINAL_MARG.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.00 seconds
+      
+
+14 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_marg.csv from OUT_2IPC_FREE_FINAL_MARG.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_marg.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.15 seconds
+      cpu time            0.07 seconds
+      
+
+
+941         /**********************************************************************
+942         *   PRODUCT:   SAS
+943         *   VERSION:   9.3
+944         *   CREATOR:   External File Interface
+945         *   DATE:      28NOV16
+946         *   DESC:      Generated SAS Datastep Code
+947         *   TEMPLATE SOURCE:  (None Specified.)
+948         ***********************************************************************/
+949            data _null_;
+950            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+951            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+952            file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_asso.csv' delimiter=',' DSD DROPOVER
+14                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+952      ! lrecl=32767;
+953            if _n_ = 1 then        /* write column names or labels */
+954             do;
+955               put
+956                  "Label"
+957               ','
+958                  "Estimate"
+959               ','
+960                  "StandardError"
+961               ','
+962                  "DF"
+963               ','
+964                  "tValue"
+965               ','
+966                  "Probt"
+967               ','
+968                  "Alpha"
+969               ','
+970                  "Lower"
+971               ','
+972                  "Upper"
+973               ;
+974             end;
+975           set  OUT_2IPC_FREE_FINAL_ASSO   end=EFIEOD;
+976               format Label $3. ;
+977               format Estimate d8.4 ;
+978               format StandardError d8.4 ;
+979               format DF best4. ;
+980               format tValue 7.2 ;
+981               format Probt pvalue6.4 ;
+982               format Alpha best6. ;
+983               format Lower d8.4 ;
+984               format Upper d8.4 ;
+985             do;
+986               EFIOUT + 1;
+987               put Label $ @;
+988               put Estimate @;
+989               put StandardError @;
+990               put DF @;
+991               put tValue @;
+992               put Probt @;
+993               put Alpha @;
+994               put Lower @;
+995               put Upper ;
+996               ;
+997             end;
+998            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+999            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1000           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_asso.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_2IPC_free_final_asso.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:50 o'cl,
+      Create Time=28 November 2016 21:32:34 o'cl
+
+NOTE: 7 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_asso.csv'.
+      The minimum record length was 53.
+15                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+      The maximum record length was 62.
+NOTE: There were 6 observations read from the data set WORK.OUT_2IPC_FREE_FINAL_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+6 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_asso.csv from OUT_2IPC_FREE_FINAL_ASSO.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_2IPC_free_final_asso.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.06 seconds
+      
+
+1001       
+1002       
+1003       /* ---------------------------------------------------- */
+1004       /* Fit 3-dimensional IPC model with fixed class points  */
+1005       /* ---------------------------------------------------- */
+1006       * All predectors ;
+1007       %fit_ipc3D(dsin=work.nesda2, is_parms_all=Y, parms_lst=, is_var_all=Y, eta_lst=, dsout=out_3IPC_all,
+1008                  debugme=N);
+### --------------------
+### Model: fit_ipc3D
+### --------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_3IPC_ALL has 27 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 11-13.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.64 seconds
+      cpu time            0.59 seconds
+      
+
+
+1009        /**********************************************************************
+1010        *   PRODUCT:   SAS
+1011        *   VERSION:   9.3
+1012        *   CREATOR:   External File Interface
+1013        *   DATE:      28NOV16
+1014        *   DESC:      Generated SAS Datastep Code
+1015        *   TEMPLATE SOURCE:  (None Specified.)
+1016        ***********************************************************************/
+1017           data _null_;
+1018           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1019           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1020           file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_all.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+1021           if _n_ = 1 then        /* write column names or labels */
+1022            do;
+1023              put
+1024                 "Parameter"
+1025              ','
+1026                 "Estimate"
+1027              ','
+1028                 "StandardError"
+1029              ','
+16                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+1030                 "DF"
+1031              ','
+1032                 "tValue"
+1033              ','
+1034                 "Probt"
+1035              ','
+1036                 "Alpha"
+1037              ','
+1038                 "Lower"
+1039              ','
+1040                 "Upper"
+1041              ','
+1042                 "Gradient"
+1043              ;
+1044            end;
+1045          set  OUT_3IPC_ALL   end=EFIEOD;
+1046              format Parameter $3. ;
+1047              format Estimate d8.4 ;
+1048              format StandardError d8.4 ;
+1049              format DF best4. ;
+1050              format tValue 7.2 ;
+1051              format Probt pvalue6.4 ;
+1052              format Alpha best6. ;
+1053              format Lower d8.4 ;
+1054              format Upper d8.4 ;
+1055              format Gradient best8. ;
+1056            do;
+1057              EFIOUT + 1;
+1058              put Parameter $ @;
+1059              put Estimate @;
+1060              put StandardError @;
+1061              put DF @;
+1062              put tValue @;
+1063              put Probt @;
+1064              put Alpha @;
+1065              put Lower @;
+1066              put Upper @;
+1067              put Gradient ;
+1068              ;
+1069            end;
+1070           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1071           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1072           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_all.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_3IPC_all.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:50 o'cl,
+      Create Time=28 November 2016 21:53:19 o'cl
+
+NOTE: 28 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_all.csv'.
+      The minimum record length was 62.
+      The maximum record length was 75.
+NOTE: There were 27 observations read from the data set WORK.OUT_3IPC_ALL.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+17                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+
+27 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_all.csv from OUT_3IPC_ALL.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_all.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.07 seconds
+      
+
+1073       
+1074       * Final model ;
+1075       %let parms_in = %NRSTR(b01 - b03 = 0
+1076                              b11 - b13 = 0
+1077                              b21 - b23 = 0
+1078                              b31 - b33 = 0
+1079                              b41 - b43 = 0
+1080                              b51 - b53 = 0);
+1081       
+1082       %let eta_in = %NRSTR(eta1 = b01 + b11*gender + b21*age + b31*edu + b41*neurot + b51*extrave ;
+1083                            eta2 = b02 + b12*gender + b22*age + b32*edu + b42*neurot + b52*extrave ;
+1084                            eta3 = b03 + b13*gender + b23*age + b33*edu + b43*neurot + b53*extrave ;
+1085                            );
+1086       
+1087       %fit_ipc3D(dsin=work.nesda2, is_parms_all=N, parms_lst=&parms_in., is_var_all=N, eta_lst=&eta_in., dsout=out_3IPC_final,
+1088                  debugme=N);
+### --------------------
+### Model: fit_ipc3D
+### --------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_3IPC_FINAL has 18 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 14-15.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.40 seconds
+      cpu time            0.34 seconds
+      
+
+
+1089        /**********************************************************************
+1090        *   PRODUCT:   SAS
+1091        *   VERSION:   9.3
+1092        *   CREATOR:   External File Interface
+1093        *   DATE:      28NOV16
+1094        *   DESC:      Generated SAS Datastep Code
+1095        *   TEMPLATE SOURCE:  (None Specified.)
+1096        ***********************************************************************/
+1097           data _null_;
+1098           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1099           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1100           file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_final.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+1101           if _n_ = 1 then        /* write column names or labels */
+1102            do;
+1103              put
+1104                 "Parameter"
+1105              ','
+1106                 "Estimate"
+1107              ','
+18                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+1108                 "StandardError"
+1109              ','
+1110                 "DF"
+1111              ','
+1112                 "tValue"
+1113              ','
+1114                 "Probt"
+1115              ','
+1116                 "Alpha"
+1117              ','
+1118                 "Lower"
+1119              ','
+1120                 "Upper"
+1121              ','
+1122                 "Gradient"
+1123              ;
+1124            end;
+1125          set  OUT_3IPC_FINAL   end=EFIEOD;
+1126              format Parameter $3. ;
+1127              format Estimate d8.4 ;
+1128              format StandardError d8.4 ;
+1129              format DF best4. ;
+1130              format tValue 7.2 ;
+1131              format Probt pvalue6.4 ;
+1132              format Alpha best6. ;
+1133              format Lower d8.4 ;
+1134              format Upper d8.4 ;
+1135              format Gradient best8. ;
+1136            do;
+1137              EFIOUT + 1;
+1138              put Parameter $ @;
+1139              put Estimate @;
+1140              put StandardError @;
+1141              put DF @;
+1142              put tValue @;
+1143              put Probt @;
+1144              put Alpha @;
+1145              put Lower @;
+1146              put Upper @;
+1147              put Gradient ;
+1148              ;
+1149            end;
+1150           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1151           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1152           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_final.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_3IPC_final.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:50 o'cl,
+      Create Time=28 November 2016 21:55:51 o'cl
+
+NOTE: 19 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_final.csv'.
+      The minimum record length was 62.
+      The maximum record length was 75.
+NOTE: There were 18 observations read from the data set WORK.OUT_3IPC_FINAL.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+19                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+      cpu time            0.00 seconds
+      
+
+18 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_final.csv from OUT_3IPC_FINAL.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_3IPC_final.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.06 seconds
+      
+
+1153       
+1154       
+1155       /* --------------- */
+1156       /* Fit BIPC model  */
+1157       /* --------------- */
+1158       * All predectors ;
+1159       %fit_bipc(dsin=work.nesda2, is_parms_all=Y, parms_lst=, is_var_all=Y, eta_lst=, dsout=out_BIPC_all,
+1160                 debugme=N);
+### -------------------
+### Model: fit_bipc
+### -------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_BIPC_ALL_ASSO has 9 observations and 9 variables.
+NOTE: The data set WORK.OUT_BIPC_ALL_MARG has 20 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 16-18.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.68 seconds
+      cpu time            0.67 seconds
+      
+
+
+1161        /**********************************************************************
+1162        *   PRODUCT:   SAS
+1163        *   VERSION:   9.3
+1164        *   CREATOR:   External File Interface
+1165        *   DATE:      28NOV16
+1166        *   DESC:      Generated SAS Datastep Code
+1167        *   TEMPLATE SOURCE:  (None Specified.)
+1168        ***********************************************************************/
+1169           data _null_;
+1170           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1171           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1172           file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_marg.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+1173           if _n_ = 1 then        /* write column names or labels */
+1174            do;
+1175              put
+1176                 "Parameter"
+1177              ','
+1178                 "Estimate"
+1179              ','
+1180                 "StandardError"
+1181              ','
+1182                 "DF"
+1183              ','
+1184                 "tValue"
+20                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+1185              ','
+1186                 "Probt"
+1187              ','
+1188                 "Alpha"
+1189              ','
+1190                 "Lower"
+1191              ','
+1192                 "Upper"
+1193              ','
+1194                 "Gradient"
+1195              ;
+1196            end;
+1197          set  OUT_BIPC_ALL_MARG   end=EFIEOD;
+1198              format Parameter $4. ;
+1199              format Estimate d8.4 ;
+1200              format StandardError d8.4 ;
+1201              format DF best4. ;
+1202              format tValue 7.2 ;
+1203              format Probt pvalue6.4 ;
+1204              format Alpha best6. ;
+1205              format Lower d8.4 ;
+1206              format Upper d8.4 ;
+1207              format Gradient best8. ;
+1208            do;
+1209              EFIOUT + 1;
+1210              put Parameter $ @;
+1211              put Estimate @;
+1212              put StandardError @;
+1213              put DF @;
+1214              put tValue @;
+1215              put Probt @;
+1216              put Alpha @;
+1217              put Lower @;
+1218              put Upper @;
+1219              put Gradient ;
+1220              ;
+1221            end;
+1222           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1223           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1224           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_marg.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_BIPC_all_marg.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:52 o'cl,
+      Create Time=28 November 2016 22:23:38 o'cl
+
+NOTE: 21 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_marg.csv'.
+      The minimum record length was 62.
+      The maximum record length was 75.
+NOTE: There were 20 observations read from the data set WORK.OUT_BIPC_ALL_MARG.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+20 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_marg.csv from OUT_BIPC_ALL_MARG.
+  
+21                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_marg.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.17 seconds
+      cpu time            0.14 seconds
+      
+
+
+1225        /**********************************************************************
+1226        *   PRODUCT:   SAS
+1227        *   VERSION:   9.3
+1228        *   CREATOR:   External File Interface
+1229        *   DATE:      28NOV16
+1230        *   DESC:      Generated SAS Datastep Code
+1231        *   TEMPLATE SOURCE:  (None Specified.)
+1232        ***********************************************************************/
+1233           data _null_;
+1234           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1235           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1236           file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_asso.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+1237           if _n_ = 1 then        /* write column names or labels */
+1238            do;
+1239              put
+1240                 "Label"
+1241              ','
+1242                 "Estimate"
+1243              ','
+1244                 "StandardError"
+1245              ','
+1246                 "DF"
+1247              ','
+1248                 "tValue"
+1249              ','
+1250                 "Probt"
+1251              ','
+1252                 "Alpha"
+1253              ','
+1254                 "Lower"
+1255              ','
+1256                 "Upper"
+1257              ;
+1258            end;
+1259          set  OUT_BIPC_ALL_ASSO   end=EFIEOD;
+1260              format Label $3. ;
+1261              format Estimate d8.4 ;
+1262              format StandardError d8.4 ;
+1263              format DF best4. ;
+1264              format tValue 7.2 ;
+1265              format Probt pvalue6.4 ;
+1266              format Alpha best6. ;
+1267              format Lower d8.4 ;
+1268              format Upper d8.4 ;
+1269            do;
+1270              EFIOUT + 1;
+1271              put Label $ @;
+1272              put Estimate @;
+1273              put StandardError @;
+1274              put DF @;
+22                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+1275              put tValue @;
+1276              put Probt @;
+1277              put Alpha @;
+1278              put Lower @;
+1279              put Upper ;
+1280              ;
+1281            end;
+1282           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1283           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1284           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_asso.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_BIPC_all_asso.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:52 o'cl,
+      Create Time=28 November 2016 22:23:38 o'cl
+
+NOTE: 10 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_asso.csv'.
+      The minimum record length was 53.
+      The maximum record length was 62.
+NOTE: There were 9 observations read from the data set WORK.OUT_BIPC_ALL_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+9 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_asso.csv from OUT_BIPC_ALL_ASSO.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_all_asso.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.04 seconds
+      
+
+1285       
+1286       * Final model ;
+1287       %let parms_in = %NRSTR(b01 - b02 = 0
+1288                              b11 - b12 = 0
+1289                              b21 - b22 = 0
+1290                              b31 - b32 = 0
+1291                              b41 - b42 = 0
+1292                              b51 - b52 = 0
+1293                              phi1 = 0.01
+1294                              phi2 = 0.01);
+1295       
+1296       %let eta_in = %NRSTR(eta1 = b01 + b11*gender + b21*age + b31*edu + b41*neurot + b51*extrave ;
+1297                            eta2 = b02 + b12*gender + b22*age + b32*edu + b42*neurot + b52*extrave ;
+1298                           );
+1299       
+1300       %fit_bipc(dsin=work.nesda2, is_parms_all=N, parms_lst=&parms_in., is_var_all=N, eta_lst=&eta_in., dsout=out_BIPC_final,
+1301                 debugme=N);
+### -------------------
+### Model: fit_bipc
+### -------------------
+NOTE: GCONV convergence criterion satisfied.
+NOTE: At least one element of the (projected) gradient is greater than 1e-3.
+NOTE: The data set WORK.OUT_BIPC_FINAL_ASSO has 6 observations and 9 variables.
+23                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+NOTE: The data set WORK.OUT_BIPC_FINAL_MARG has 14 observations and 10 variables.
+NOTE: The PROCEDURE NLMIXED printed pages 19-20.
+NOTE: PROCEDURE NLMIXED used (Total process time):
+      real time           0.47 seconds
+      cpu time            0.36 seconds
+      
+
+
+1302        /**********************************************************************
+1303        *   PRODUCT:   SAS
+1304        *   VERSION:   9.3
+1305        *   CREATOR:   External File Interface
+1306        *   DATE:      28NOV16
+1307        *   DESC:      Generated SAS Datastep Code
+1308        *   TEMPLATE SOURCE:  (None Specified.)
+1309        ***********************************************************************/
+1310           data _null_;
+1311           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1312           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1313           file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_marg.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+1314           if _n_ = 1 then        /* write column names or labels */
+1315            do;
+1316              put
+1317                 "Parameter"
+1318              ','
+1319                 "Estimate"
+1320              ','
+1321                 "StandardError"
+1322              ','
+1323                 "DF"
+1324              ','
+1325                 "tValue"
+1326              ','
+1327                 "Probt"
+1328              ','
+1329                 "Alpha"
+1330              ','
+1331                 "Lower"
+1332              ','
+1333                 "Upper"
+1334              ','
+1335                 "Gradient"
+1336              ;
+1337            end;
+1338          set  OUT_BIPC_FINAL_MARG   end=EFIEOD;
+1339              format Parameter $4. ;
+1340              format Estimate d8.4 ;
+1341              format StandardError d8.4 ;
+1342              format DF best4. ;
+1343              format tValue 7.2 ;
+1344              format Probt pvalue6.4 ;
+1345              format Alpha best6. ;
+1346              format Lower d8.4 ;
+1347              format Upper d8.4 ;
+1348              format Gradient best8. ;
+1349            do;
+1350              EFIOUT + 1;
+1351              put Parameter $ @;
+24                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+1352              put Estimate @;
+1353              put StandardError @;
+1354              put DF @;
+1355              put tValue @;
+1356              put Probt @;
+1357              put Alpha @;
+1358              put Lower @;
+1359              put Upper @;
+1360              put Gradient ;
+1361              ;
+1362            end;
+1363           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1364           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1365           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_marg.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_BIPC_final_marg.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:52 o'cl,
+      Create Time=28 November 2016 22:24:09 o'cl
+
+NOTE: 15 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_marg.csv'.
+      The minimum record length was 63.
+      The maximum record length was 75.
+NOTE: There were 14 observations read from the data set WORK.OUT_BIPC_FINAL_MARG.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+14 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_marg.csv from OUT_BIPC_FINAL_MARG.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_marg.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.15 seconds
+      cpu time            0.09 seconds
+      
+
+
+1366        /**********************************************************************
+1367        *   PRODUCT:   SAS
+1368        *   VERSION:   9.3
+1369        *   CREATOR:   External File Interface
+1370        *   DATE:      28NOV16
+1371        *   DESC:      Generated SAS Datastep Code
+1372        *   TEMPLATE SOURCE:  (None Specified.)
+1373        ***********************************************************************/
+1374           data _null_;
+1375           %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1376           %let _EFIREC_ = 0;     /* clear export record count macro variable */
+1377           file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_asso.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+1378           if _n_ = 1 then        /* write column names or labels */
+1379            do;
+1380              put
+1381                 "Label"
+1382              ','
+1383                 "Estimate"
+25                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+1384              ','
+1385                 "StandardError"
+1386              ','
+1387                 "DF"
+1388              ','
+1389                 "tValue"
+1390              ','
+1391                 "Probt"
+1392              ','
+1393                 "Alpha"
+1394              ','
+1395                 "Lower"
+1396              ','
+1397                 "Upper"
+1398              ;
+1399            end;
+1400          set  OUT_BIPC_FINAL_ASSO   end=EFIEOD;
+1401              format Label $3. ;
+1402              format Estimate d8.4 ;
+1403              format StandardError d8.4 ;
+1404              format DF best4. ;
+1405              format tValue 7.2 ;
+1406              format Probt pvalue6.4 ;
+1407              format Alpha best6. ;
+1408              format Lower d8.4 ;
+1409              format Upper d8.4 ;
+1410            do;
+1411              EFIOUT + 1;
+1412              put Label $ @;
+1413              put Estimate @;
+1414              put StandardError @;
+1415              put DF @;
+1416              put tValue @;
+1417              put Probt @;
+1418              put Alpha @;
+1419              put Lower @;
+1420              put Upper ;
+1421              ;
+1422            end;
+1423           if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1424           if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+1425           run;
+
+NOTE: The file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_asso.csv' is:
+      Filename=G:\PhD_project\subproject_1\Codes\SAS\Outputs\out_BIPC_final_asso.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=28 November 2016 22:36:52 o'cl,
+      Create Time=28 November 2016 22:24:10 o'cl
+
+NOTE: 7 records were written to the file 'G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_asso.csv'.
+      The minimum record length was 53.
+      The maximum record length was 62.
+NOTE: There were 6 observations read from the data set WORK.OUT_BIPC_FINAL_ASSO.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+26                                                         The SAS System                            21:08 Monday, November 28, 2016
+
+6 records created in G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_asso.csv from OUT_BIPC_FINAL_ASSO.
+  
+  
+NOTE: "G:\PhD_project\subproject_1\Codes/SAS/Outputs/out_BIPC_final_asso.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.14 seconds
+      cpu time            0.09 seconds
+      
+
+1426       
+1427       
+1428       proc printto log=log print=print;
+1429       run;
+
